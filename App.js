@@ -7,6 +7,7 @@ import RegistroScreen from "./src/screens/RegistroScreen";
 import DetalleMaquina from "./src/screens/DetalleMaquina";
 import TabContainerScreen from "./src/screens/TabContainerScreen";
 import estilos from "./src/styles/estilos";
+import {initFirebase} from './src/api/backend';
 
 import colores from "./src/styles/colores";
 
