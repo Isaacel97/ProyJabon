@@ -89,7 +89,24 @@ const estilos = StyleSheet.create({
       backgroundColor: colores.azulMic,
       },
     headerTintColor: 'white',
-  }
+  },
+  errorText: {
+    fontSize: 14,
+    color: 'red',
+    marginBottom: 12,
+    marginLeft: 20
+  },
+  nombresyapellidos: {
+    fontSize: 18,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20, 
+    fontWeight: '600',
+    paddingLeft: 20,
+    borderWidth: 1,
+    borderRadius: 7,
+    paddingRight: 12,
+  }, 
   });
 
 export default estilos;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, TextInput, View, Image, Pressable } from "react-native";
+import { Text, TouchableOpacity, TextInput, View, Image, Pressable, Alert } from "react-native";
 import estilos from './../styles/estilos';
 import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
-import { useTogglePasswordVisibility } from './../utils/useTogglePasswordVisibility';
+import { useTogglePasswordVisibility, loginValidationSchema, initialValues  } from './../utils/validaciones';
+import { Formik } from 'formik'; 
 
 //Screen login
 const MenuScreen = (props) => {
@@ -16,6 +17,22 @@ const MenuScreen = (props) => {
     <View style={estilos.container}>
       {/* Logo */}
       <Image source={require('./../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
+      <Formik
+        validateOnMount={true}
+        validationSchema={loginValidationSchema}
+        initialValues={initialValues}
+        onSubmit={values => console.log(values)}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          isValid,
+        }) => (
+          <>
       {/* Input email */}
       <View style={estilos.textInputIconContainer}>
         <AntDesign
@@ -27,12 +44,20 @@ const MenuScreen = (props) => {
           style={estilos.textInputIcon}
           name='email'
           placeholder='Email'
+          onChangeText={handleChange('email')}
+          onBlur={handleBlur('email')}
+          value={values.email}
           keyboardType='email-address'
           autoComplete='email'
           autoCapitalize='none'
           autoCorrect={false}
           textContentType='emailAddress'
         />
+      </View>
+      <View>
+        {(errors.email && touched.email) &&
+          <Text style={estilos.errorText}>{errors.email}</Text>
+        }
       </View>
       {/* Input Password */}
       <View style={estilos.textInputIconContainer}>
@@ -45,19 +70,38 @@ const MenuScreen = (props) => {
           autoCorrect={false}
           textContentType='password'
           secureTextEntry={passwordVisibility}
-          value={password}
+          value={values.password}
           enablesReturnKeyAutomatically
-          onChangeText={text => setPassword(text)}
+          onChangeText={handleChange('password')}
+          onBlur={handleBlur('password')}
         />
         <Pressable onPress={handlePasswordVisibility}>
           <MaterialCommunityIcons name={rightIcon} size={22} color="#5271FF" />
         </Pressable>
       </View>
+      <View>
+        {(errors.password && touched.password) &&
+          <Text style={estilos.errorText}>{errors.password}</Text>
+        }
+      </View>
       {/* Boton: login */}
       <TouchableOpacity 
         style={estilos.botonTouch}
         onPress={() => {
-          props.navigation.navigate('menu_tab');
+          if (values.email != null && values.password != null) {
+            props.navigation.navigate('menu_tab');
+          }else{
+            Alert.alert(
+              '¡Alerta!',
+              'Email y/o contraseña incorrecto, vuelve a intentarlo' ,
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => {},
+                  style: 'default',
+                },
+              ]);
+          }
         }}
       >
         <Text style={{
@@ -77,6 +121,9 @@ const MenuScreen = (props) => {
           ¿No tienes cuenta? ¡Registrate!
         </Text>
       </TouchableOpacity>
+      </>
+            )}
+      </Formik>
     </View>
   )
 } //Fin de contenedor principal

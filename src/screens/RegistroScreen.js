@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Text, TouchableOpacity, TextInput, View, Image, Pressable, Alert, ScrollView, Switch } from "react-native";
 import estilos from './../styles/estilos';
 import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
-import { useTogglePasswordVisibility } from './../utils/useTogglePasswordVisibility';
+import { useTogglePasswordVisibility, loginValidationSchema, initialValues } from '../utils/validaciones';
+// Importamos Formik 
+import { Formik } from 'formik'; 
+
 
 const RegistroScreen = (props) => {
   //const para show/hidden password
@@ -18,6 +21,23 @@ const RegistroScreen = (props) => {
     <View>
       {/* Logo */}
       <Image source={require('./../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
+      {/* Validacion datos */}
+      <Formik
+        validateOnMount={true}
+        validationSchema={loginValidationSchema}
+        initialValues={initialValues}
+        onSubmit={values => console.log(values)}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          isValid,
+        }) => (
+          <>
       {/* Input nombre */}
       <View style={estilos.textInputIconContainer}>
         <AntDesign
@@ -29,9 +49,20 @@ const RegistroScreen = (props) => {
           style={estilos.textInputIcon}
           name='nombre'
           placeholder='Nombre completo'
+          onChangeText={handleChange('nombresyapellidos')}
+          onBlur={handleBlur('nombresyapellidos')}
+          value={values.nombresyapellidos}
           keyboardType='default'
           autoCapitalize='characters'
         />
+      </View>
+      <View style={{
+        ...estilos.container,
+        padding: 0,
+        }}>
+        {(errors.nombresyapellidos && touched.nombresyapellidos) &&
+          <Text style={estilos.errorText}>{errors.nombresyapellidos}</Text>
+        }
       </View>
       {/* Input email */}
       <View style={estilos.textInputIconContainer}>
@@ -44,12 +75,23 @@ const RegistroScreen = (props) => {
           style={estilos.textInputIcon}
           name='email'
           placeholder='Email'
+          onChangeText={handleChange('email')}
+          onBlur={handleBlur('email')}
+          value={values.email}
           keyboardType='email-address'
           autoComplete='email'
           autoCapitalize='none'
           autoCorrect={false}
           textContentType='emailAddress'
         />
+      </View>
+      <View style={{
+        ...estilos.container,
+        padding: 0,
+        }}>
+        {(errors.email && touched.email) &&
+          <Text style={estilos.errorText}>{errors.email}</Text>
+        }
       </View>
       {/* Input Password */}
       <View style={estilos.textInputIconContainer}>
@@ -62,13 +104,22 @@ const RegistroScreen = (props) => {
           autoCorrect={false}
           textContentType='password'
           secureTextEntry={passwordVisibility}
-          value={password}
+          value={values.password}
           enablesReturnKeyAutomatically
-          onChangeText={text => setPassword(text)}
+          onChangeText={handleChange('password')}
+          onBlur={handleBlur('password')}
         />
         <Pressable onPress={handlePasswordVisibility}>
           <MaterialCommunityIcons name={rightIcon} size={22} color="#5271FF" />
         </Pressable>
+      </View>
+      <View style={{
+        ...estilos.container,
+        padding: 0,
+        }}>
+        {(errors.password && touched.password) &&
+          <Text style={estilos.errorText}>{errors.password}</Text>
+        }
       </View>
       {/* Input Confirma Password */}
       <View style={estilos.textInputIconContainer}>
@@ -76,12 +127,23 @@ const RegistroScreen = (props) => {
           style={estilos.textInputIcon}
           name="confirmaPassword"
           placeholder='Repite password'
+          onChangeText={handleChange('repeatPassword')}
+          onBlur={handleBlur('repeatPassword')}
+          value={values.repeatPassword}
           keyboardType='default' 
           autoCapitalize='none'
           autoCorrect={false}
           textContentType='password'
           secureTextEntry
         />
+      </View>
+      <View style={{
+        ...estilos.container,
+        padding: 0,
+        }}>
+        {(errors.repeatPassword && touched.repeatPassword) &&
+          <Text style={estilos.errorText}>{errors.repeatPassword}</Text>
+        }
       </View>
       {/* Switch: Terminos */}
       <View style={estilos.switchContainer}>
@@ -115,21 +177,37 @@ const RegistroScreen = (props) => {
         style={estilos.botonTouch}
         title='Alert' 
         onPress={() => {
+          if (values.nombresyapellidos != null && values.email != null && values.password != null && values.repeatPassword != null && values.password == values.repeatPassword) {
+            Alert.alert(
+              'Confirma datos',
+              'Nombre: {nombre}, Email: {email} ¿Los datos con correctos?' ,
+              [
+                {
+                  text: 'Sí',
+                  onPress: () => {
+                    handleSubmit, 
+                    props.navigation.navigate('inicio');
+                  },
+                  style: 'default',
+                },
+                {
+                  text: 'No',
+                  onPress: () => {},
+                  style: 'cancel',
+                },
+              ]);
+          }else{
           Alert.alert(
-            'Confirma datos',
-            'Nombre: {nombre}, Email: {email} ¿Los datos con correctos?' ,
+            '¡Alerta!',
+            'Uno o màs campos estan incorrectos, favor de revisar' ,
             [
               {
-                text: 'Sí',
-                onPress: () => props.navigation.navigate('inicio'),
+                text: 'Ok',
+                onPress: () => {},
                 style: 'default',
               },
-              {
-                text: 'No',
-                onPress: () => {},
-                style: 'cancel',
-              },
             ]);
+          }
           }}>
         <Text style={{
           color: 'white',
@@ -148,6 +226,9 @@ const RegistroScreen = (props) => {
           ¿Ya tienes cuenta? ¡Inicia sesión!
         </Text>
       </TouchableOpacity>
+      </>
+            )}
+      </Formik>
     </View>
     </ScrollView>
   )//Fin de contenedor principal
