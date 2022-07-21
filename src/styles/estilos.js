@@ -61,6 +61,10 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
+  textBtn: {
+    color: 'white',
+    fontSize: 18,
+  },
   textDatos: {
     paddingStart: 8,
     marginTop: 12,

@@ -6,6 +6,7 @@ import MenuScreen from './src/screens/MenuScreen';
 import RegistroScreen from "./src/screens/RegistroScreen";
 import DetalleMaquina from "./src/screens/DetalleMaquina";
 import TabContainerScreen from "./src/screens/TabContainerScreen";
+import Pruebas from "./src/screens/Pruebas";
 import estilos from "./src/styles/estilos";
 import {initFirebase} from './src/api/backend';
 
@@ -52,6 +53,15 @@ const App = () => (
         component={DetalleMaquina}
         options={{
           title:'Control maquina',
+          ...estilos.headerEstilo,
+        }}
+      />
+
+      <Stack.Screen
+        name="pruebas"
+        component={Pruebas}
+        options={{
+          title:'pruebas',
           ...estilos.headerEstilo,
         }}
       />

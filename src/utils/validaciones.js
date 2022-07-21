@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import * as yup from 'yup';
 
 export const useTogglePasswordVisibility = () => {
     const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -22,35 +21,23 @@ export const useTogglePasswordVisibility = () => {
     };
   };
 
-  // Mensajes de Validación del Formulario 
- export const loginValidationSchema = () => {
-  return yup.object().shape({
-    nombresyapellidos: yup
-      .string("Ingresa tus Nombres y Apellidos")
-      .required("*Campo requerido"),
+  export const useToggleRepeatPasswordVisibility = () => {
+    const [repeatPasswordVisibility, setRepeatPasswordVisibility] = useState(true);
+    const [rightIcon2, setRightIcon2] = useState('eye');
   
-    email: yup
-      .string("Ingresa tu Email")
-      .required("*Campo requerido")
-      .email("Ingresa un Email válido"),
+    const handleRepeatPasswordVisibility = () => {
+      if (rightIcon2 === 'eye') {
+        setRightIcon2('eye-off');
+        setRepeatPasswordVisibility(!repeatPasswordVisibility);
+      } else if (rightIcon2 === 'eye-off') {
+        setRightIcon2('eye');
+        setRepeatPasswordVisibility(!repeatPasswordVisibility);
+      }
+    };
   
-    password: yup
-      .string()
-      .required("*Campo requerido"),
-
-    repeatPassword: yup
-      .string()
-      .required("La confirmación es obligatoria")
-      .oneOf([yup.ref("password")], "Las contraseñas no son iguales"),
-  });
-};
-
-// contenido valores
-export const initialValues = () => {
-  return { 
-    nombresyapellidos: '', 
-    email:'', 
-    password: '', 
-    repeatPassword: '' 
-  }
-}
+    return {
+      repeatPasswordVisibility,
+      rightIcon2,
+      handleRepeatPasswordVisibility
+    };
+  };

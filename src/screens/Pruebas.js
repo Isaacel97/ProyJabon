@@ -29,7 +29,7 @@
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
 
-const MenuScreen = (props) => {
+const Pruebas = (props) => {
     //Constantes para ocultar/mostrar passwords
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
@@ -153,5 +153,101 @@ const loginValidationSchema = yup.object().shape({
    )
  };
   
- export default MenuScreen;
+ const styles = StyleSheet.create({
+  
+   formulario: {
+     color: Colors.black,
+     fontSize: 18,
+     marginTop: 20,
+     fontWeight: '600',
+     padding: 4,
+     paddingRight: 12,
+     textAlign: 'center',
+   },
+  
+   nombresyapellidos: {
+     color: Colors.dark,
+     fontSize: 18,
+     marginTop: 20,
+     marginLeft: 20,
+     marginRight: 20, 
+     fontWeight: '600',
+     paddingLeft: 20,
+     borderWidth: 1,
+     borderRadius: 7,
+     borderColor: Colors.black,
+     paddingRight: 12,
+   }, 
+ 
+   email: {
+     color: Colors.dark,
+     fontSize: 18,
+     marginTop: 20,
+     marginLeft: 20,
+     marginRight: 20, 
+     fontWeight: '600',
+     paddingLeft: 20,
+     borderWidth: 1,
+     borderRadius: 7,
+     borderColor: Colors.black,
+     paddingRight: 12,
+   }, 
+  
+   telefono: {
+     color: Colors.dark,
+     fontSize: 18,
+     marginTop: 20,
+     marginLeft: 20,
+     marginRight: 20, 
+     fontWeight: '600',
+     paddingLeft: 20,
+     borderWidth: 1,
+     borderRadius: 7,
+     borderColor: Colors.black,
+     paddingRight: 12,
+   },
+   
+   mensaje: {
+     color: Colors.dark,
+     fontSize: 18,
+     marginTop: 20,
+     marginBottom: 20,
+     marginLeft: 20,
+     marginRight: 20, 
+     fontWeight: '600',
+     paddingLeft: 20,
+     borderWidth: 1,
+     borderRadius: 7,
+     borderColor: Colors.black,
+     paddingRight: 12,
+   },
+  
+   colorBtn: {
+     borderWidth: 1,
+     borderColor: '#007BFF',
+     backgroundColor: '#007BFF',
+     padding: 15,
+     marginLeft: 20,
+     marginRight: 20,
+     borderRadius: 7,
+   },
+  
+   colorTxtBtn: {
+     color: '#FFFFFF',
+     fontSize: 20,
+     textAlign: 'center'
+   },
+ 
+   errorText: {
+     fontSize: 14,
+     color: 'red',
+     marginBottom: 20,
+     marginLeft: 20
+   },
+   icon:{
+    color:"#c1c1c1",
+    },
+ });
+  
+ export default Pruebas;
  
