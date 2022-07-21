@@ -16,18 +16,11 @@
    TouchableOpacity,
    Pressable
  } from 'react-native';
- import { useTogglePasswordVisibility } from '../utils/validaciones';
- import {
-   Header,
-   LearnMoreLinks,
-   Colors,
-   DebugInstructions,
-   ReloadInstructions,
- } from 'react-native/Libraries/NewAppScreen'; 
- 
-// Importamos Formik y Yup 
+ import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
+import { userDB, userDetalles } from '../utils/userDB';
+
 
 const MenuScreen = (props) => {
     //Constantes para ocultar/mostrar passwords
@@ -35,16 +28,6 @@ const MenuScreen = (props) => {
     useTogglePasswordVisibility();
 
 // Mensajes de Validación del Formulario 
-const loginValidationSchema = yup.object().shape({
-    email: yup
-      .string("Ingresa tu Email")
-      .required("*Campo requerido")
-      .email("Ingresa un Email válido"),
-   
-    password: yup
-      .string("Ingresa tu contraseña")
-      .required("*Campo requerido"),
-  });
     return (
      <>
      {/*Contenedor general*/}
@@ -58,8 +41,14 @@ const loginValidationSchema = yup.object().shape({
              validationSchema={loginValidationSchema}
              initialValues={{ email:'', password: '' }}
              onSubmit={(values) => {
+              const {email, password} = values;
+
+              if (email !== userDB.email || password !== userDB.password) {
+                console.log('Email y/o contraseñas incorrectos, vuelve a intertarlo')
+              } else{
                 console.log(values)
                 props.navigation.navigate('menu_tab');
+              }
             }}
            >
              {({

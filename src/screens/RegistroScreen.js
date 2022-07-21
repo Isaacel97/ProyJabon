@@ -7,7 +7,6 @@
  import estilos from '../styles/estilos';
  import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
  import {
-   StyleSheet,
    ScrollView,
    View,
    Text,
@@ -18,18 +17,10 @@
    Alert,
    Pressable
  } from 'react-native';
- import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility } from '../utils/validaciones';
- import {
-   Header,
-   LearnMoreLinks,
-   Colors,
-   DebugInstructions,
-   ReloadInstructions,
- } from 'react-native/Libraries/NewAppScreen'; 
- 
-// Importamos Formik y Yup 
+ import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
+import colores from '../styles/colores';
 
 const RegistroScreen = (props) => {
     //Constantes para ocultar/mostrar passwords
@@ -39,28 +30,10 @@ const RegistroScreen = (props) => {
     const { repeatPasswordVisibility, rightIcon2, handleRepeatPasswordVisibility } =
     useToggleRepeatPasswordVisibility();
 
-    let valorSwitch = false;
+    //const switch
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 // Mensajes de Validación del Formulario 
-const loginValidationSchema = yup.object().shape({
-    nombresyapellidos: yup
-      .string("Ingresa tus Nombres y Apellidos")
-      .required("*Campo requerido"),
-   
-    email: yup
-      .string("Ingresa tu Email")
-      .required("*Campo requerido")
-      .email("Ingresa un Email válido"),
-   
-    password: yup
-      .string("Ingresa tu contraseña")
-      .required("*Campo requerido"), 
-   
-    repitePawword: yup
-      .string("Ingresa de nuevo tu contraseña")
-      .required("*La confirmación es obligatoria")
-      .oneOf([yup.ref("password")], "Las contraseñas no son iguales"),
-   
-  });
     return (
      <>
      {/*Contenedor general*/}
@@ -71,8 +44,8 @@ const loginValidationSchema = yup.object().shape({
             {/* Validacion datos */}
            <Formik
              validateOnMount={true}
-             validationSchema={loginValidationSchema}
-             initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '' }}
+             validationSchema={registroValidationSchema}
+             initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '', accepted: false }}
              onSubmit={(values) => {
                 console.log(values)
                 props.navigation.navigate('inicio');
@@ -101,7 +74,7 @@ const loginValidationSchema = yup.object().shape({
                    onBlur={handleBlur('nombresyapellidos')}
                    value={values.nombresyapellidos}
                    keyboardType="default" 
-                   autoCapitalize='characters'
+                   autoCapitalize='words'
                 /> 
                 </View>
                 <View style={{
@@ -200,21 +173,20 @@ const loginValidationSchema = yup.object().shape({
                                 'Esta aplicación ha sido diseñada y administrada por la Agencia Digital de Innovación Pública de la Ciudad de México. Así mismo, los módulos que integran está aplicación han sido diseñados para integrar información de utilidad que pueda ser consultada desde un dispositivo móvil, como lo es información relativa a movilidad, conectividad, medio ambiente, participación ciudadana, clima y seguridad de la Ciudad de México. Así mismo, los usuarios de “APP CDMX” podrán emitir reportes y quejas a través del' ,
                                 [
                                     {
-                                        text: 'Sí',
-                                        onPress: () => valorSwitch=true,
-                                        style: 'default',
-                                    },
-                                    {
-                                        text: 'No',
+                                        text: 'Ok',
                                         onPress: () => {},
-                                        style: 'cancel',
+                                        style: 'default',
                                     },
                                 ]);
                         }}>
                             Acepto terminos y condiciones
                     </Text>
                     <Switch
-                    value={valorSwitch}
+                            trackColor={{ false: "#767577", true: colores.azulMic }}
+                            thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
                     />
                 </View> 
                 {/* Boton: registro */}

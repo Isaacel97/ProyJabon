@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import * as yup from 'yup';
 
 export const useTogglePasswordVisibility = () => {
     const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -41,3 +42,42 @@ export const useTogglePasswordVisibility = () => {
       handleRepeatPasswordVisibility
     };
   };
+
+  export const registroValidationSchema = yup.object().shape({
+    nombresyapellidos: yup
+      .string("Ingresa tus Nombres y Apellidos")
+      .required("*Campo requerido"),
+   
+    email: yup
+      .string("Ingresa tu Email")
+      .required("*Campo requerido")
+      .email("Ingresa un Email válido"),
+   
+    password: yup
+      .string("Ingresa tu contraseña")
+      .required("*Campo requerido")
+      .min(8), 
+   
+    repitePawword: yup
+      .string("Ingresa de nuevo tu contraseña")
+      .required("*La confirmación es obligatoria")
+      .oneOf([yup.ref("password")], "Las contraseñas no son iguales"),
+   
+    /*
+    accepted: yup
+      .bool()
+      .isTrue(true),
+    */
+  });
+
+  export const loginValidationSchema = yup.object().shape({
+    email: yup
+      .string("Ingresa tu Email")
+      .required("*Campo requerido")
+      .email("Ingresa un Email válido"),
+   
+    password: yup
+      .string("Ingresa tu contraseña")
+      .required("*Campo requerido")
+      .min(8),
+  });
