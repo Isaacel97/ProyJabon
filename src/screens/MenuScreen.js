@@ -19,7 +19,7 @@
  import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
-import { userDB, userDetalles } from '../utils/userDB';
+import { userDB } from '../utils/userDB';
 
 
 const MenuScreen = (props) => {
@@ -27,7 +27,9 @@ const MenuScreen = (props) => {
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
-// Mensajes de Validación del Formulario 
+    //const mensaje error email o password
+    const [error, setError] = useState('');
+
     return (
      <>
      {/*Contenedor general*/}
@@ -41,10 +43,11 @@ const MenuScreen = (props) => {
              validationSchema={loginValidationSchema}
              initialValues={{ email:'', password: '' }}
              onSubmit={(values) => {
+              setError('')
               const {email, password} = values;
 
               if (email !== userDB.email || password !== userDB.password) {
-                console.log('Email y/o contraseñas incorrectos, vuelve a intertarlo')
+                setError('Email y/o contraseña incorrectos, vuelve a intertarlo')
               } else{
                 console.log(values)
                 props.navigation.navigate('menu_tab');
@@ -113,6 +116,12 @@ const MenuScreen = (props) => {
                     {(errors.password && touched.password) &&
                      <Text style={estilos.errorText}>{errors.password}</Text>
                     }
+                </View>
+                <View style={{
+                    ...estilos.container,
+                    padding: 0,
+                }}>
+                     <Text style={estilos.errorText}>{error}</Text>                    
                 </View>
                 {/* Boton: Login */}
                  <TouchableOpacity
