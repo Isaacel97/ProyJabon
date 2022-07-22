@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth';
 
 //tab = pestaña
 const PerfilTab = (props) => {
-  const {auth} = useAuth();
+  const {inicio} = useAuth();
     return(
 //Contendor principal
 <ScrollView style={{
@@ -27,7 +27,7 @@ const PerfilTab = (props) => {
   <TextInput 
     style={estilos.textInputIcon}
     name='nombre'
-    placeholder={`${auth.nombresyapellidos}`}
+    placeholder='nombre'
     keyboardType='default'
     editable={false}
   />
@@ -45,7 +45,7 @@ const PerfilTab = (props) => {
   <TextInput 
     style={estilos.textInputIcon}
     name='email'
-    placeholder={`${auth.email}`}
+    placeholder={`${inicio.email}`}
     keyboardType='email-address'
     textContentType='emailAddress'
     editable={false}
