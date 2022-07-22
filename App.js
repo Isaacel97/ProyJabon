@@ -4,11 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MenuScreen from './src/screens/MenuScreen';
 import RegistroScreen from "./src/screens/RegistroScreen";
-import DetalleMaquina from "./src/screens/DetalleMaquina";
+import DetalleMaquina from "./src/screens/Maquinas/DetalleMaquina";
 import TabContainerScreen from "./src/screens/TabContainerScreen";
+import AddMaquinas from "./src/screens/Maquinas/AddMaquinas";
 import Pruebas from "./src/screens/Pruebas";
 import estilos from "./src/styles/estilos";
-import {initFirebase} from './src/api/backend';
+import {AuthProvider} from "./src/context/AuthContext"
 
 import colores from "./src/styles/colores";
 
@@ -16,6 +17,7 @@ const Stack = createNativeStackNavigator();
 
 const App = () => (
   <NavigationContainer>
+    <AuthProvider>
     <StatusBar
       backgroundColor={colores.azulMic}
     />
@@ -47,6 +49,14 @@ const App = () => (
         }}
       />
 
+      <Stack.Screen
+        name="add_maquina"
+        component={AddMaquinas}
+        options={{
+          title:'Agregar maquina'
+        }}
+      />
+
 
       <Stack.Screen
         name="det_maquina"
@@ -67,6 +77,7 @@ const App = () => (
       />
 
     </Stack.Navigator>
+    </AuthProvider>
   </NavigationContainer>
 
 );

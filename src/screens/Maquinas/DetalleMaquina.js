@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, View, Alert } from 'react-native'
-import estilos from '../styles/estilos'
+import estilos from '../../styles/estilos'
 
 const DetalleMaquina = (props) => {
   let StatusDepositos = true;

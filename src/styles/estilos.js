@@ -5,7 +5,8 @@ const estilos = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 12,
+    padding: 8,
+    
   },
   logo: {
     width: 290,
@@ -31,10 +32,6 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 4,
     borderColor: '#5271FF'
-  },
-  textInputIconLine: {
-    color: '#000',
-    fontWeight: 'normal'
   },
   switchContainer: {
     flex: 1,
@@ -100,17 +97,6 @@ const estilos = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 20
   },
-  nombresyapellidos: {
-    fontSize: 18,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20, 
-    fontWeight: '600',
-    paddingLeft: 20,
-    borderWidth: 1,
-    borderRadius: 7,
-    paddingRight: 12,
-  }, 
   });
 
 export default estilos;

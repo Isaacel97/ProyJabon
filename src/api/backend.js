@@ -1,17 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {getFirestore} from "firebase/firestore";
+import Constants from "expo-constants";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDQh5yDA24A8VGYhPYsqisQJNT0ollWc8Y",
-  authDomain: "fabricajabon-f1d05.firebaseapp.com",
-  projectId: "fabricajabon-f1d05",
-  storageBucket: "fabricajabon-f1d05.appspot.com",
-  messagingSenderId: "447082439914",
-  appId: "1:447082439914:web:22ba5ac53854b9fe716393"
+  apiKey: Constants.manifest.extra.apiKey,
+  authDomain: Constants.manifest.extra.authDomain,
+  projectId: Constants.manifest.extra.projectId,
+  storageBucket: Constants.manifest.extra.storageBucket,
+  messagingSenderId: Constants.manifest.extra.messagingSenderId,
+  appId: Constants.manifest.extra.appId,
 };
 
 // Initialize Firebase
-export const initFirebase = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
+export const database = getFirestore();

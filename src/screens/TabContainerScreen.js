@@ -6,10 +6,12 @@ import {MaterialIcons} from '@expo/vector-icons';
 import colores from '../styles/colores';
 import { TouchableOpacity, Alert } from 'react-native';
 import {Icon} from "react-native-elements";
+import useAuth from '../hooks/useAuth';
 //Screen = contenedor de pantallas
 const Tab = createBottomTabNavigator();
 
 const TabContainerScreen = (props) => {
+  const {logout} = useAuth();
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -17,6 +19,25 @@ const TabContainerScreen = (props) => {
           backgroundColor: colores.azulMic,
           },
         headerTintColor: 'white',
+        headerLeft: () => {
+          return(
+            <TouchableOpacity
+              style={{
+                paddingStart: 16
+              }}
+              title='Alert' 
+              onPress={() => {
+                props.navigation.navigate('add_maquina')
+              }}
+              >
+              <MaterialIcons 
+                name='add-box'
+                color={'white'}
+                size={24}
+              />
+            </TouchableOpacity>
+          )
+        },
         headerRight: () => {
           return(
             <TouchableOpacity
@@ -31,7 +52,10 @@ const TabContainerScreen = (props) => {
                   [
                     {
                       text: 'Sí',
-                      onPress: () => props.navigation.navigate('inicio'),
+                      onPress: () => {
+                        logout()
+                        props.navigation.navigate('inicio')
+                      },
                       style: 'default',
                     },
                     {
@@ -45,7 +69,7 @@ const TabContainerScreen = (props) => {
               <MaterialIcons 
                 name='logout'
                 color={'white'}
-                size={18}
+                size={24}
               />
             </TouchableOpacity>
           )

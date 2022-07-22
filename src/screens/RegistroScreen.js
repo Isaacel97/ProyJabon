@@ -15,12 +15,15 @@
    TouchableOpacity,
    Switch,
    Alert,
-   Pressable
+   Pressable,
+   SafeAreaView
  } from 'react-native';
  import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
 import colores from '../styles/colores';
+import { database } from '../api/backend';
+import { collection, addDoc } from 'firebase/firestore';
 
 const RegistroScreen = (props) => {
     //Constantes para ocultar/mostrar passwords
@@ -33,12 +36,17 @@ const RegistroScreen = (props) => {
     //const switch
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+    //const datos a firebase
+    const enviaDatos = async (values) => {
+      await addDoc(collection(database, 'datosUser'), values);
+    }
 // Mensajes de Validación del Formulario 
     return (
      <>
      {/*Contenedor general*/}
      <ScrollView style={estilos.container}>  
-         <View>
+         <SafeAreaView>
            {/* Logo */}
             <Image source={require('./../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
             {/* Validacion datos */}
@@ -47,8 +55,9 @@ const RegistroScreen = (props) => {
              validationSchema={registroValidationSchema}
              initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '', accepted: false }}
              onSubmit={(values) => {
-                console.log(values)
-                props.navigation.navigate('inicio');
+                console.log(values);
+                //props.navigation.navigate('inicio');
+                enviaDatos(values);
             }}
            >
              {({
@@ -69,6 +78,7 @@ const RegistroScreen = (props) => {
                 color={'#5271FF'}
                 />
                  <TextInput style={estilos.textInputIcon} 
+                   name="nombreCompleto"
                    placeholder="Nombres y Apellidos"
                    onChangeText={handleChange('nombresyapellidos')}
                    onBlur={handleBlur('nombresyapellidos')}
@@ -92,16 +102,17 @@ const RegistroScreen = (props) => {
                 size={24}
                 color={'#5271FF'}
                 />
-                 <TextInput style={estilos.textInputIcon} 
-                   placeholder="micorreo@micorreo.com"
-                   onChangeText={handleChange('email')}
-                   onBlur={handleBlur('email')}
-                   value={values.email}
-                   keyboardType="email-address" 
-                   autoComplete='email'
-                   autoCapitalize='none'
-                   autoCorrect={false}
-                   textContentType='emailAddress'
+                <TextInput style={estilos.textInputIcon}
+                  name="email"
+                  placeholder="micorreo@micorreo.com"
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                  keyboardType="email-address" 
+                  autoComplete='email'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  textContentType='emailAddress'
                 /> 
                 </View>
                 <View style={{
@@ -115,6 +126,7 @@ const RegistroScreen = (props) => {
                 {/* Input Password */}
                 <View style={estilos.textInputIconContainer}>
                  <TextInput style={estilos.textInputIcon} 
+                   name="password"
                    placeholder="Password"
                    onChangeText={handleChange('password')}
                    onBlur={handleBlur('password')}
@@ -140,7 +152,8 @@ const RegistroScreen = (props) => {
                 </View>
                 {/* Input repitePassword */}
                 <View style={estilos.textInputIconContainer}>
-                 <TextInput style={estilos.textInputIcon} 
+                 <TextInput style={estilos.textInputIcon}
+                   name="repitePassword" 
                    placeholder="Repite password"
                    onChangeText={handleChange('repitePawword')}
                    onBlur={handleBlur('repitePawword')}
@@ -211,7 +224,7 @@ const RegistroScreen = (props) => {
                </>
              )}
            </Formik>
-         </View>
+         </SafeAreaView>
      </ScrollView>    
      </>
    )

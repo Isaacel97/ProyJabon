@@ -20,6 +20,7 @@
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
 import { userDB } from '../utils/userDB';
+import useAuth from '../hooks/useAuth';
 
 
 const MenuScreen = (props) => {
@@ -29,6 +30,9 @@ const MenuScreen = (props) => {
 
     //const mensaje error email o password
     const [error, setError] = useState('');
+
+    //const Auth
+    const {login} = useAuth();
 
     return (
      <>
@@ -49,6 +53,8 @@ const MenuScreen = (props) => {
               if (email !== userDB.email || password !== userDB.password) {
                 setError('Email y/o contraseña incorrectos, vuelve a intertarlo')
               } else{
+                login(userDB)
+                
                 console.log(values)
                 props.navigation.navigate('menu_tab');
               }

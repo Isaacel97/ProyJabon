@@ -3,6 +3,7 @@ import {View, Text, FlatList, RefreshControl, SafeAreaView} from 'react-native';
 import colores from '../../styles/colores';
 import estilos from '../../styles/estilos';
 import MaquinaItem from '../../components/MaquinaItem';
+import { database } from '../../api/backend';
 
 //tab = pestaña | i <= arrRepiteItems.length
 const MaquinaTab = (props) => {

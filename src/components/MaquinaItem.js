@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import estilos from '../styles/estilos';
-import colores from '../styles/colores';
 import {AntDesign} from '@expo/vector-icons';
+import { database } from '../api/backend';
+import { doc } from 'firebase/firestore';
 
 const MaquinaItem = (props) => {
   return (
