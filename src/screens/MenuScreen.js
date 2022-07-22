@@ -19,8 +19,11 @@
  import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
-import { userDB } from '../utils/userDB';
-import useAuth from '../hooks/useAuth';
+// import { userDB } from '../utils/userDB';
+// import useAuth from '../hooks/useAuth';
+import { auth } from '../api/backend';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
 
 
 const MenuScreen = (props) => {
@@ -31,8 +34,17 @@ const MenuScreen = (props) => {
     //const mensaje error email o password
     const [error, setError] = useState('');
 
-    //const Auth
-    const {login} = useAuth();
+    //const Auth (este es un comentario realmente)
+    //const {login} = useAuth();
+
+    // inicio de sesion authentification firebase
+    const onHandleLogin = (values) => {
+      if (values.email !== "" && values.password !== "") {
+        signInWithEmailAndPassword(auth, values.email, values.password)
+          .then(() => console.log("Login success"))
+          .catch((err) => Alert.alert("Login error", err.message));
+      }
+    };
 
     return (
      <>
@@ -47,17 +59,18 @@ const MenuScreen = (props) => {
              validationSchema={loginValidationSchema}
              initialValues={{ email:'', password: '' }}
              onSubmit={(values) => {
+              /*
               setError('')
-              const {email, password} = values;
-
-              if (email !== userDB.email || password !== userDB.password) {
+              const {email, password} = values;            
+              if (email !== values.email || password !== userDB.password) {
                 setError('Email y/o contraseña incorrectos, vuelve a intertarlo')
               } else{
                 login(userDB)
-                
+              */
+                onHandleLogin(values)
                 console.log(values)
                 props.navigation.navigate('menu_tab');
-              }
+              //}
             }}
            >
              {({

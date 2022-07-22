@@ -22,7 +22,8 @@
 import { Formik } from 'formik'; 
 import * as yup from 'yup';
 import colores from '../styles/colores';
-import { database } from '../api/backend';
+import { database, auth } from '../api/backend';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 
 const RegistroScreen = (props) => {
@@ -41,7 +42,17 @@ const RegistroScreen = (props) => {
     const enviaDatos = async (values) => {
       await addDoc(collection(database, 'datosUser'), values);
     }
-// Mensajes de Validación del Formulario 
+    //const datos a firebase authentification
+    const onHandleSignup = (values) => {
+      if (values.email !== '' && values.password !== '') {
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+          .then(() => console.log('Signup success'))
+          .catch((err) => Alert.alert("Login error", err.message));
+      } else {
+        console.log('no capta los values :( ')
+      }
+    };
+
     return (
      <>
      {/*Contenedor general*/}
@@ -56,8 +67,8 @@ const RegistroScreen = (props) => {
              initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '', accepted: false }}
              onSubmit={(values) => {
                 console.log(values);
-                //props.navigation.navigate('inicio');
                 enviaDatos(values);
+                onHandleSignup(values)
             }}
            >
              {({
