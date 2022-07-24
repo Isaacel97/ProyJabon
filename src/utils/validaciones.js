@@ -56,8 +56,8 @@ export const useTogglePasswordVisibility = () => {
     password: yup
       .string("Ingresa tu contraseña")
       .required("*Campo requerido")
-      .min(8), 
-   
+      .min(8, 'Minimo 8 caracteres'),
+
     repitePawword: yup
       .string("Ingresa de nuevo tu contraseña")
       .required("*La confirmación es obligatoria")
@@ -79,5 +79,6 @@ export const useTogglePasswordVisibility = () => {
     password: yup
       .string("Ingresa tu contraseña")
       .required("*Campo requerido")
-      .min(8),
+      .min(8, 'Minimo 8 caracteres')
+      
   });

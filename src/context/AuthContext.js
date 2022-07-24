@@ -1,6 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
-import { collection, doc, onSnapshot, query, querySnapshot } from 'firebase/firestore';
-import { database } from "../api/backend";
+import React, { useState, createContext } from "react";
 
 export const AuthContext = createContext({
   inicio: undefined,

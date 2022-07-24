@@ -7,7 +7,7 @@
  import estilos from '../styles/estilos';
  import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
  import {
-   StyleSheet,
+   Alert,
    ScrollView,
    View,
    Text,
@@ -18,13 +18,8 @@
  } from 'react-native';
  import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
 import { Formik } from 'formik'; 
-import * as yup from 'yup';
-// import { userDB } from '../utils/userDB';
-// import useAuth from '../hooks/useAuth';
 import { auth } from '../api/backend';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-
-
 
 const MenuScreen = (props) => {
     //Constantes para ocultar/mostrar passwords
@@ -34,15 +29,18 @@ const MenuScreen = (props) => {
     //const mensaje error email o password
     const [error, setError] = useState('');
 
-    //const Auth (este es un comentario realmente)
-    //const {login} = useAuth();
-
     // inicio de sesion authentification firebase
     const onHandleLogin = (values) => {
       if (values.email !== "" && values.password !== "") {
         signInWithEmailAndPassword(auth, values.email, values.password)
-          .then(() => console.log("Login success"))
-          .catch((err) => Alert.alert("Login error", err.message));
+        .then((userCredential) => {
+          console.log('Login success');
+          // constante para obtener datos de login
+          const user = userCredential.user;
+          console.log(user);
+          props.navigation.navigate('menu_tab');
+        })
+          .catch(() => Alert.alert("Login error", "Email y/o contraseña erroneo"));
       }
     };
 
@@ -69,7 +67,7 @@ const MenuScreen = (props) => {
               */
                 onHandleLogin(values)
                 console.log(values)
-                props.navigation.navigate('menu_tab');
+                console.log(auth)
               //}
             }}
            >

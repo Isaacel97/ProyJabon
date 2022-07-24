@@ -20,7 +20,6 @@
  } from 'react-native';
  import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
 import { Formik } from 'formik'; 
-import * as yup from 'yup';
 import colores from '../styles/colores';
 import { database, auth } from '../api/backend';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -39,14 +38,21 @@ const RegistroScreen = (props) => {
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     //const datos a firebase
-    const enviaDatos = async (values) => {
-      await addDoc(collection(database, 'datosUser'), values);
-    }
+    const enviaDatos = async(varNombre, varEmail) =>{
+      await addDoc(collection(database, 'datoUser'), {
+        nombre: varNombre,
+        email: varEmail,
+    })}
     //const datos a firebase authentification
     const onHandleSignup = (values) => {
       if (values.email !== '' && values.password !== '') {
     createUserWithEmailAndPassword(auth, values.email, values.password)
-          .then(() => console.log('Signup success'))
+          .then(() => {
+            const user = userCredential.user;
+            console.log('Signup success');
+            console.log(user);
+            props.navigation.navigate('inicio');
+          })
           .catch((err) => Alert.alert("Login error", err.message));
       } else {
         console.log('no capta los values :( ')
@@ -66,9 +72,10 @@ const RegistroScreen = (props) => {
              validationSchema={registroValidationSchema}
              initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '', accepted: false }}
              onSubmit={(values) => {
-                console.log(values);
-                enviaDatos(values);
-                onHandleSignup(values)
+                enviaDatos(values.nombresyapellidos, values.email)
+                console.log('datos en firebase, exitoso');
+                onHandleSignup(values);
+                console.log('cuenta creada con auth');
             }}
            >
              {({
