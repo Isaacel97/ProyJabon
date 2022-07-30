@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Text, TouchableOpacity, TextInput, View, Alert, ScrollView } from "react-native";
 import estilos from './../../styles/estilos'
 import {AntDesign} from '@expo/vector-icons';
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from './../../api/backend';
+import { getStorage, ref } from "firebase/storage";
+import {getAuth} from "firebase/auth"
 
 //tab = pestaña
 const PerfilTab = (props) => {
+  //const datos email
+  const {email} = getAuth().currentUser;
     return(
 //Contendor principal
 <ScrollView style={{
@@ -45,7 +47,7 @@ const PerfilTab = (props) => {
   <TextInput 
     style={estilos.textInputIcon}
     name='email'
-    placeholder={`${auth.email}`}
+    placeholder={email}
     keyboardType='email-address'
     textContentType='emailAddress'
     editable={false}

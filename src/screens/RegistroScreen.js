@@ -48,9 +48,8 @@ const RegistroScreen = (props) => {
       if (values.email !== '' && values.password !== '') {
     createUserWithEmailAndPassword(auth, values.email, values.password)
           .then(() => {
-            const user = userCredential.user;
             console.log('Signup success');
-            console.log(user);
+            Alert.alert("Cuent creada", "Registro exitoso, inicia sesion")
             props.navigation.navigate('inicio');
           })
           .catch((err) => Alert.alert("Login error", err.message));
@@ -201,7 +200,10 @@ const RegistroScreen = (props) => {
                         onPress={() => {
                             Alert.alert(
                                 'Terminos y condiciones',
-                                'Esta aplicación ha sido diseñada y administrada por la Agencia Digital de Innovación Pública de la Ciudad de México. Así mismo, los módulos que integran está aplicación han sido diseñados para integrar información de utilidad que pueda ser consultada desde un dispositivo móvil, como lo es información relativa a movilidad, conectividad, medio ambiente, participación ciudadana, clima y seguridad de la Ciudad de México. Así mismo, los usuarios de “APP CDMX” podrán emitir reportes y quejas a través del' ,
+                                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Vestibulum pellentesque turpis vitae lectus ornare maximus. 
+                                Fusce pretium odio porta augue efficitur, eu consequat ex hendrerit. 
+                                Donec ornare malesuada sagittis. Maecenas pharetra augue sapien, sed aliquam velit egestas et. Nam vel dui ut tortor vestibulum pretium at quis metus.`,
                                 [
                                     {
                                         text: 'Ok',
