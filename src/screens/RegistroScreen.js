@@ -49,7 +49,7 @@ const RegistroScreen = (props) => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
           .then(() => {
             console.log('Signup success');
-            Alert.alert("Cuent creada", "Registro exitoso, inicia sesion")
+            Alert.alert("Cuenta creada", "Registro exitoso, inicia sesion");
             props.navigation.navigate('inicio');
           })
           .catch((err) => Alert.alert("Login error", err.message));

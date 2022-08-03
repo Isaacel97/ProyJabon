@@ -1,15 +1,54 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { TouchableOpacity, Text, View, Alert } from 'react-native'
-import estilos from '../../styles/estilos'
+import estilos from '../../styles/estilos';
+import { db } from '../../api/backend';
+import { ref, set, get, child, update } from "firebase/database";
 
-const DetalleMaquina = (props) => {
-  let StatusDepositos = true;
+const DetalleMaquina = () => {
+  const prendido = 'ON'
+
+  function encender () {
+    update(ref(db, 'Maquina/'), {
+      encendido: prendido
+    }).then(() => {
+      console.log("ya se subio wii");
+    }).catch((error) => {
+      console.log(error);
+      console.log('cagada 5#');
+    })
+  };
+
+  function depositos () {
+    const dbRef = ref(db);
+    get(child(dbRef, `Maquina/Depositos`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        return snapshot.val()
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    }); 
+  };
+
+
+  let StatusDepositos = "llenos";
   return (
     <View style={{
       ...estilos.container,
       justifyContent: 'center',
+      }}>      
+      {/* Texto: estado depositos */}
+      <Text style={{
+        ...estilos.textDatos,
+        marginTop: 24,
+        marginBottom: 8,
+        textAlign: 'center'
       }}>
-      {/* Boton: status proceso */}
+        ´Estado depositos: ${depositos()}´
+      </Text>
+      {/* Texto: status proceso */}
       <Text style={{
         ...estilos.textDatos,
         marginTop: 24,
@@ -27,6 +66,8 @@ const DetalleMaquina = (props) => {
         }}
         title='Alert' 
         onPress={() => {
+          encender()
+          /*
           if (StatusDepositos == true) {
             Alert.alert(
               'Inicio proceso',
@@ -36,6 +77,7 @@ const DetalleMaquina = (props) => {
                 onPress: () => {},
                 style: 'default',
               }]);
+            {encender}
           }else{
             Alert.alert(
               '¡ERROR!',
@@ -46,12 +88,13 @@ const DetalleMaquina = (props) => {
                 style: 'default',
               }]);
           }
+          */
         }}>
         <Text style={{
           color: 'white',
           fontSize: 18,
         }}>
-          Actualizar datos
+          Encender maquina
         </Text>
       </TouchableOpacity>
     </View>

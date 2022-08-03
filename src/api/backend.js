@@ -2,12 +2,14 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth"
+import { getDatabase } from "firebase/database";
 import Constants from "expo-constants";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: Constants.manifest.extra.apiKey,
   authDomain: Constants.manifest.extra.authDomain,
+  databaseURL: "https://fabricajabon-f1d05-default-rtdb.firebaseio.com",
   projectId: Constants.manifest.extra.projectId,
   storageBucket: Constants.manifest.extra.storageBucket,
   messagingSenderId: Constants.manifest.extra.messagingSenderId,
@@ -15,6 +17,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
-export const database = getFirestore();
+export const database = getFirestore(app);
+export const db = getDatabase(app);
