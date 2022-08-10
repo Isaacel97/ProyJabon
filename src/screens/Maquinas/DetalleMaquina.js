@@ -14,7 +14,7 @@ const DetalleMaquina = () => {
       console.log("ya se subio wii");
     }).catch((error) => {
       console.log(error);
-      console.log('cagada 5#');
+      console.log('regada 5#');
     })
   };
 
@@ -23,6 +23,7 @@ const DetalleMaquina = () => {
     get(child(dbRef, `Maquina/Depositos`)).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
+        return snapshot.val()
       } else {
         console.log("No data available");
       }
@@ -45,7 +46,7 @@ const DetalleMaquina = () => {
         marginBottom: 8,
         textAlign: 'center'
       }}>
-        ´Estado depositos: ${depositos()}´
+        ´Estado depositos´
       </Text>
       {/* Texto: status proceso */}
       <Text style={{

@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, TextInput, View, Alert, ScrollView } from "react-native";
 import estilos from './../../styles/estilos'
 import {AntDesign} from '@expo/vector-icons';
-import { getStorage, ref } from "firebase/storage";
-import {getAuth} from "firebase/auth"
+import {getAuth} from "firebase/auth";
+import { fireNombre } from '../../utils/controlBD';
+import { async } from '@firebase/util';
 
 //tab = pestaña
 const PerfilTab = (props) => {
   //const datos email
   const {email} = getAuth().currentUser;
+
+  //muestra nombre
+  const [nombre, setNombre] = useState (null);
+  useEffect (() => { 
+    getNombre();
+  }, [])
+  const getNombre = async() => {
+    const n = await fireNombre(email);
+    console.log(n);
+    setNombre(n);
+  }
     return(
 //Contendor principal
 <ScrollView style={{
@@ -29,7 +41,7 @@ const PerfilTab = (props) => {
   <TextInput 
     style={estilos.textInputIcon}
     name='nombre'
-    placeholder='nombre'
+    placeholder={nombre}
     keyboardType='default'
     editable={false}
   />

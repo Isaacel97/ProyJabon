@@ -6,12 +6,13 @@ import {MaterialIcons} from '@expo/vector-icons';
 import colores from '../styles/colores';
 import { TouchableOpacity, Alert } from 'react-native';
 import {Icon} from "react-native-elements";
-import useAuth from '../hooks/useAuth';
+import { auth } from '../api/backend';
+
 //Screen = contenedor de pantallas
 const Tab = createBottomTabNavigator();
 
 const TabContainerScreen = (props) => {
-  const {logout} = useAuth();
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -52,9 +53,13 @@ const TabContainerScreen = (props) => {
                   [
                     {
                       text: 'Sí',
-                      onPress: () => {
-                        logout()
+                      onPress: () => {  
+                      try {
+                        auth.signOut();
                         props.navigation.navigate('inicio')
+                      } catch (error) {
+                        console.log(error);
+                      }    
                       },
                       style: 'default',
                     },

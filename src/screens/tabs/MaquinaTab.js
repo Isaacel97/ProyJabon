@@ -3,12 +3,12 @@ import {View, Text, FlatList, RefreshControl, SafeAreaView} from 'react-native';
 import colores from '../../styles/colores';
 import estilos from '../../styles/estilos';
 import MaquinaItem from '../../components/MaquinaItem';
-import { database } from '../../api/backend';
+import { leeDoc, email } from '../../utils/controlBD';
 
 //tab = pestaña | i <= arrRepiteItems.length
 const MaquinaTab = (props) => {
-  const [flatCargando, setFlatCargando] = 
-    React.useState(false);
+  const [flatCargando, setFlatCargando] = React.useState(false);
+  
   const arrRepiteItems = []
   for (let i = 0; i <= 4; i++ ) {
     arrRepiteItems.push({

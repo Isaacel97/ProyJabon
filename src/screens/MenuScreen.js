@@ -57,14 +57,6 @@ const MenuScreen = (props) => {
              validationSchema={loginValidationSchema}
              initialValues={{ email:'', password: '' }}
              onSubmit={(values) => {
-              /*
-              setError('')
-              const {email, password} = values;            
-              if (email !== values.email || password !== userDB.password) {
-                setError('Email y/o contraseña incorrectos, vuelve a intertarlo')
-              } else{
-                login(userDB)
-              */
                 onHandleLogin(values)
                 console.log(values)
                 console.log(auth)

@@ -23,7 +23,7 @@ import { Formik } from 'formik';
 import colores from '../styles/colores';
 import { database, auth } from '../api/backend';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 
 const RegistroScreen = (props) => {
     //Constantes para ocultar/mostrar passwords
@@ -39,7 +39,7 @@ const RegistroScreen = (props) => {
 
     //const datos a firebase
     const enviaDatos = async(varNombre, varEmail) =>{
-      await addDoc(collection(database, 'datoUser'), {
+      await setDoc(doc(database, 'datoUser', varEmail), {
         nombre: varNombre,
         email: varEmail,
     })}
@@ -48,7 +48,7 @@ const RegistroScreen = (props) => {
       if (values.email !== '' && values.password !== '') {
     createUserWithEmailAndPassword(auth, values.email, values.password)
           .then(() => {
-            console.log('Signup success');
+            // console.log('Signup success');
             Alert.alert("Cuenta creada", "Registro exitoso, inicia sesion");
             props.navigation.navigate('inicio');
           })
@@ -72,6 +72,7 @@ const RegistroScreen = (props) => {
              initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '', accepted: false }}
              onSubmit={(values) => {
                 enviaDatos(values.nombresyapellidos, values.email)
+                console.log(enviaDatos);
                 console.log('datos en firebase, exitoso');
                 onHandleSignup(values);
                 console.log('cuenta creada con auth');
