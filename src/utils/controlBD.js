@@ -1,4 +1,4 @@
-import {doc, getDoc} from 'firebase/firestore';
+import {doc, getDoc, collection, query, where, getDocs} from 'firebase/firestore';
 import {getAuth} from "firebase/auth";
 import { database } from '../api/backend';
 import { async } from '@firebase/util';
@@ -17,10 +17,13 @@ export const fireNombre = async(varEmail) => {
 export const fireMaq = async(varEmail) => {
     const docRef = doc(database, "datoUser", varEmail);
     const docSnap = await getDoc(docRef);
+    for (let i = 0; i < docSnap.data().maquinas.length; i++){
+        console.log('funcion:',docSnap.data().maquinas[i])
+    };
     return docSnap.data().maquinas;
 }
 
-//firestore maquinas
+//firestore tamaño array
 export const fireMaqLen = async(varEmail) => {
     const docRef = doc(database, "datoUser", varEmail);
     const docSnap = await getDoc(docRef);
