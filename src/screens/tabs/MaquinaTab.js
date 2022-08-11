@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, FlatList, RefreshControl, SafeAreaView} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import colores from '../../styles/colores';
 import estilos from '../../styles/estilos';
 import MaquinaItem from '../../components/MaquinaItem';
@@ -11,17 +12,24 @@ const MaquinaTab = (props) => {
   //carga cuenta
   const {email} = getAuth().currentUser;
     
+  // Controlamos la visibilidad del loader
   const [flatCargando, setFlatCargando] = React.useState(false);
-  
   //datos array
   const [maquina, setMaquina] = useState (null);
   useEffect (() => { 
     getMaquinas();
-  }, [])
+  }, []);
+  useFocusEffect(
+		React.useCallback(() => {
+			getMaquinas();
+		}, [])
+	);
   const getMaquinas = async() => {
+    setFlatCargando(true);
     const m = await fireMaq(email);
     console.log('contenido',m);
     setMaquina(m);
+    setFlatCargando(false);
   }
   //tamaño arreglo
   const [maquinaLen, setMaquinaLen] = useState (null);
@@ -44,16 +52,13 @@ const MaquinaTab = (props) => {
     <View
       style={estilos.container}
     >
-      <Text>prueba</Text>
         <SafeAreaView>
             <FlatList
                 refreshControl={
                     <RefreshControl 
                         refreshing={flatCargando}
                         size='large'
-                        onRefresh={() => {
-                            setFlatCargando(true);
-                        }}
+                        onRefresh={getMaquinas}
                         tintColor={colores.azulMic} //ios
                         colors={[colores.azulMic]} // android, perimite varios colores a diferencia de tintcolor de ios
                     />

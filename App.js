@@ -9,6 +9,7 @@ import TabContainerScreen from "./src/screens/TabContainerScreen";
 import AddMaquinas from "./src/screens/Maquinas/AddMaquinas";
 import Pruebas from "./src/screens/Pruebas";
 import estilos from "./src/styles/estilos";
+import CamaraQR from "./src/screens/Maquinas/CamaraQR";
 import {AuthProvider} from "./src/context/AuthContext"
 
 import colores from "./src/styles/colores";
@@ -57,6 +58,13 @@ const App = () => (
         }}
       />
 
+      <Stack.Screen
+        name="camara"
+        component={CamaraQR}
+        options={{
+          title:'Escanear camara'
+        }}
+      />
 
       <Stack.Screen
         name="det_maquina"

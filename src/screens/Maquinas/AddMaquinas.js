@@ -16,18 +16,15 @@ const AddMaquinas = (props) => {
     updateDoc(washingtonRef, {
       maquinas: arrayUnion(maquina)
     }).then(() => {
-      console.log("maquina agregada");
+      Alert.alert("Maquina agregada", "¡Se agrego maquina con exito!");
     }).catch((error) => {
       console.log("Oh no!, otra vez la regamos!!")
     });
   }
   return (
     <View>
-      <Text>
-        abrir camara QR
-      </Text>
       {/* Input Id maquina */}
-      <View style={estilos.textInputIconContainer}>
+      <View style={{...estilos.textInputIconContainer, marginTop: 24}}>
         <TextInput style={estilos.textInputIcon}
           value={maquina} 
           onChangeText={(maquina) => {setMaquina(maquina)}}
@@ -36,12 +33,21 @@ const AddMaquinas = (props) => {
           keyboardType="number-pad" 
         /> 
       </View>
-      {/* Boton: registro */}
+      {/* Boton: agregar maquina */}
       <TouchableOpacity
         style={estilos.botonTouch}
         onPress={agregaMaq}
       >
         <Text style={estilos.textBtn}>Agregar maquina</Text>
+      </TouchableOpacity>
+      {/* Boton: camara maquina */}
+      <TouchableOpacity
+        style={estilos.botonTouch}
+        onPress={() => {
+          props.navigation.navigate('camara');
+        }}
+      >
+        <Text style={estilos.textBtn}>Escanear QR</Text>
       </TouchableOpacity>
     </View>
   )
