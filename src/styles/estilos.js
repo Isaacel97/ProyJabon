@@ -97,6 +97,15 @@ const estilos = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 20
   },
+  barcodebox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 300,
+    width: 300,
+    overflow: 'hidden',
+    borderRadius: 30,
+    backgroundColor: 'tomato'
+  }
   });
 
 export default estilos;

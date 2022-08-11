@@ -6,21 +6,22 @@ import { database } from '../../api/backend';
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 const AddMaquinas = (props) => {
+  //arrastra datos de sesion
   const {email} = getAuth().currentUser;
 
+  //funcion agregar maquina
   const [maquina, setMaquina] = useState('');
-  
   function agregaMaq() {
     const washingtonRef = doc(database, "datoUser", email);
-    // Atomically add a new region to the "regions" array field.
     updateDoc(washingtonRef, {
       maquinas: arrayUnion(maquina)
     }).then(() => {
       Alert.alert("Maquina agregada", "¡Se agrego maquina con exito!");
     }).catch((error) => {
-      console.log("Oh no!, otra vez la regamos!!")
+      console.log("Oh no!, no se agrego ni maiz a firebase :( ")
     });
   }
+  //comienza la vista
   return (
     <View>
       {/* Input Id maquina */}
