@@ -13,9 +13,17 @@ export const fireNombre = async(varEmail) => {
     return docSnap.data().nombre;
 }
 
-//firestore nombre
+//firestore maquinas
 export const fireMaq = async(varEmail) => {
     const docRef = doc(database, "datoUser", varEmail);
     const docSnap = await getDoc(docRef);
     return docSnap.data().maquinas;
 }
+
+//firestore maquinas
+export const fireMaqLen = async(varEmail) => {
+    const docRef = doc(database, "datoUser", varEmail);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data().maquinas.length;
+}
+

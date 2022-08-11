@@ -42,6 +42,8 @@ const RegistroScreen = (props) => {
       await setDoc(doc(database, 'datoUser', varEmail), {
         nombre: varNombre,
         email: varEmail,
+        tipo: 'usuario',
+        maquinas: []
     })}
     //const datos a firebase authentification
     const onHandleSignup = (values) => {

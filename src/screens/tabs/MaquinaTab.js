@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {View, Text, FlatList, RefreshControl, SafeAreaView} from 'react-native';
 import colores from '../../styles/colores';
 import estilos from '../../styles/estilos';
 import MaquinaItem from '../../components/MaquinaItem';
-import { leeDoc, email } from '../../utils/controlBD';
+import { fireMaq, fireMaqLen } from '../../utils/controlBD';
+import {getAuth} from "firebase/auth";
 
 //tab = pestaña | i <= arrRepiteItems.length
 const MaquinaTab = (props) => {
   const [flatCargando, setFlatCargando] = React.useState(false);
-  
+  //carga cuenta
+  const {email} = getAuth().currentUser;
+  //muestra id maq
+  const [maquina, setMaquina] = useState (null);
+  useEffect (() => { 
+    getMaquinas();
+  }, [])
+  const getMaquinas = async() => {
+    const m = await fireMaq(email);
+    console.log(m);
+    setMaquina(m);
+  }
+  //tamaño arreglo
+  const [maquinaLen, setMaquinaLen] = useState (null);
+  useEffect (() => { 
+    getMaquinasLen();
+  }, [])
+  const getMaquinasLen = async() => {
+    const m = await fireMaqLen(email);
+    console.log(m);
+    setMaquinaLen(m);
+  }
+  //array list
   const arrRepiteItems = []
-  for (let i = 0; i <= 4; i++ ) {
+  for (let i = 0; i < maquinaLen; i++ ) {
     arrRepiteItems.push({
         id: `id: ${i}`,
         nombre: `Maquina: #${i + 1}`,
@@ -18,8 +41,9 @@ const MaquinaTab = (props) => {
   }
   return(
     <View
-        style={estilos.container}
+      style={estilos.container}
     >
+      <Text>{maquina}</Text>
         <SafeAreaView>
             <FlatList
                 refreshControl={
