@@ -3,23 +3,12 @@
  * @flow strict-local
  */
  
- import React, { useState } from 'react';
- import estilos from '../styles/estilos';
- import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
- import {
-   ScrollView,
-   View,
-   Text,
-   TextInput,
-   Image,
-   TouchableOpacity,
-   Switch,
-   Alert,
-   Pressable,
-   SafeAreaView
- } from 'react-native';
- import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
+import React, { useState } from 'react';
+import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
+import {ScrollView, View, Text, TextInput, Image, TouchableOpacity, Switch, Alert, Pressable, SafeAreaView} from 'react-native';
+import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
 import { Formik } from 'formik'; 
+import estilos from '../styles/estilos';
 import colores from '../styles/colores';
 import { database, auth } from '../api/backend';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
