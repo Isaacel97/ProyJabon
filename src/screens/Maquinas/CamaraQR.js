@@ -1,14 +1,27 @@
 import React, {useState, useEffect} from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button, Alert } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import estilos from '../../styles/estilos';
+import colores from '../../styles/colores';
+import {getAuth} from "firebase/auth";
+import { agregaMaq } from '../../utils/controlBD';
 
 const CamaraQR = (props) => {
+  //arrastra datos de sesion
+  const {email} = getAuth().currentUser;
+  //funcion agregar maquina
+  const [maquina, setMaquina] = useState(null);
+  useEffect (() => { 
+    addMaq();
+  }, []);
+  const addMaq = async() => {
+    const m = await agregaMaq(email, maquina);
+    setMaquina(m);
+  };
   //obtener permiso de camara
   const [permiso, setPermiso] = useState(null);
   const [scanner, setScanner] = useState(false);
-  const [texto, setTexto] = useState('No se ha escaneado');
 
   const permisoCamara = () => {(
     async () => {
@@ -25,7 +38,7 @@ const CamaraQR = (props) => {
   //despues de escanear
   const valorScan = ({type, data}) => {
     setScanner(true);
-    setTexto(data);
+    setMaquina(data);
     console.log('Tipo:', type, 'Id maq:', data);
   };
 
@@ -40,9 +53,22 @@ const CamaraQR = (props) => {
   if (permiso === false) {
     return (
         <View style={estilos.container}>
-          <Text style={{ margin: 10 }}>has denegado lo permisos, mendig@</Text>
-          <Button title={'Dar permisos'} onPress={() => permisoCamara()}/>
+          <Text style={{ margin: 10 }}>No has dado permisos de camara para escanear QR</Text>
         </View>
+      )
+  };
+  if (maquina == null) {
+    return (
+      <View style={estilos.container}>
+      <View style={estilos.barcodebox}>
+        <BarCodeScanner
+          onBarCodeScanned={scanner ? undefined : valorScan}
+          style={{ height: 400, width: 400 }} />
+      </View>
+      <Text style={estilos.linkTouch}>¡Escanea el QR¡</Text>
+      {scanner && <Button 
+        title={'Agregar maquina'} onPress={addMaq} color={colores.azulMic} />}
+    </View>
       )
   }
 
@@ -54,8 +80,11 @@ const CamaraQR = (props) => {
           onBarCodeScanned={scanner ? undefined : valorScan}
           style={{ height: 400, width: 400 }} />
       </View>
-      <Text style={estilos.linkTouch}>{texto}</Text>
-      {scanner && <Button title={'Escanear otra vez?'} onPress={() => setScanner(false)} color='tomato' />}
+      <Text style={estilos.linkTouch}>`id: {maquina}`</Text>
+      {scanner && <Button 
+        title={'Agregar maquina'} 
+        onPress={addMaq} 
+        color={colores.azulMic} />}
     </View>
   )
 }

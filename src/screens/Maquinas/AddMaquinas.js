@@ -1,25 +1,21 @@
-import React, { useState } from 'react'
-import {View, Text, TextInput, TouchableOpacity, Alert, SafeAreaView} from 'react-native';
+import React, { useState, useEffect } from 'react'
+import {View, Text, TextInput, TouchableOpacity, SafeAreaView} from 'react-native';
 import estilos from '../../styles/estilos';
 import {getAuth} from "firebase/auth";
-import { database } from '../../api/backend';
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { agregaMaq } from '../../utils/controlBD';
 
 const AddMaquinas = (props) => {
   //arrastra datos de sesion
   const {email} = getAuth().currentUser;
 
   //funcion agregar maquina
-  const [maquina, setMaquina] = useState('');
-  function agregaMaq() {
-    const washingtonRef = doc(database, "datoUser", email);
-    updateDoc(washingtonRef, {
-      maquinas: arrayUnion(maquina)
-    }).then(() => {
-      Alert.alert("Maquina agregada", "¡Se agrego maquina con exito!");
-    }).catch((error) => {
-      console.log("Oh no!, no se agrego ni maiz a firebase :( ")
-    });
+  const [maquina, setMaquina] = useState(null);
+  useEffect (() => { 
+    addMaq();
+  }, []);
+  const addMaq = async() => {
+    const m = await agregaMaq(email, maquina);
+    setMaquina(m);
   }
   //comienza la vista
   return (
@@ -37,7 +33,7 @@ const AddMaquinas = (props) => {
       {/* Boton: agregar maquina */}
       <TouchableOpacity
         style={estilos.botonTouch}
-        onPress={agregaMaq}
+        onPress={addMaq}
       >
         <Text style={estilos.textBtn}>Agregar maquina</Text>
       </TouchableOpacity>

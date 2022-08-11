@@ -1,4 +1,5 @@
-import {doc, getDoc, collection, query, where, getDocs} from 'firebase/firestore';
+import { Alert } from 'react-native';
+import {doc, getDoc, updateDoc, arrayUnion} from 'firebase/firestore';
 import {getAuth} from "firebase/auth";
 import { database } from '../api/backend';
 import { async } from '@firebase/util';
@@ -30,3 +31,19 @@ export const fireMaqLen = async(varEmail) => {
     return docSnap.data().maquinas.length;
 }
 
+//firestores agrega maquina
+export const agregaMaq = async(varEmail, arrayMaquina) => {
+    if (arrayMaquina != null) {
+        const maquinaRef = doc(database, "datoUser", varEmail);
+        await updateDoc(maquinaRef, {
+          maquinas: arrayUnion(arrayMaquina)
+        }).then(() => {
+          Alert.alert("Maquina agregada", "¡Se agrego maquina con exito!");
+        }).catch((error) => {
+          Alert.alert("¡Error!", "No se agrego el id, intentelo mas tarde.");
+        });
+    } else {
+        console.log('por suerte no se manda nada');
+    };
+    
+  }
