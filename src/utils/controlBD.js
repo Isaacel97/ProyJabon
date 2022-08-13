@@ -40,10 +40,8 @@ export const agregaMaq = async(varEmail, arrayMaquina) => {
         }).catch((error) => {
           Alert.alert("¡Error!", "No se agrego el id, intentelo mas tarde.");
         });
-    } else {
-        console.log('por suerte no se manda nada');
     };   
-  }
+  };
 
 //Realtiem control maquina
 export const encender = async() => {
@@ -51,10 +49,16 @@ export const encender = async() => {
   update(ref(db, 'Maquina/'), {
     encendido: prendido
   }).then(() => {
-    console.log("ya se subio wii");
+    Alert.alert(
+      'Inicio proceso',
+      'Comenzando con mezcla de ingredientes' ,
+      [{
+        text: 'Ok',
+        onPress: () => {},
+        style: 'default',
+      }]);
   }).catch((error) => {
-    console.log(error);
-    console.log('regada 5#');
+    Alert.alert('¡ERROR!', 'Problemas de conexion ', error);
   })
 };
 

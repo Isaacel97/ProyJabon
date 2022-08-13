@@ -28,8 +28,7 @@ const AddMaquinas = (props) => {
           name="idMaq"
           placeholder="Ingresar ID maquina"
           keyboardType="default"
-          autoCapitalize='none' 
-        /> 
+          autoCapitalize='none'/> 
       </View>
       {/* Boton: agregar maquina */}
       <TouchableOpacity
@@ -42,12 +41,10 @@ const AddMaquinas = (props) => {
         style={estilos.botonTouch}
         onPress={() => {
           props.navigation.navigate('camara');
-        }}
-      >
+        }}>
         <Text style={estilos.textBtn}>Escanear QR</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+)}
 
 export default AddMaquinas;

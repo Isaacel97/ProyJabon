@@ -26,11 +26,9 @@ const MaquinaItem = (props) => {
             <AntDesign
                 name='select1'
                 color={'black'}
-                size={32}
-            />
+                size={32}/>
         </View>
     </TouchableOpacity>
-  )
-}
+)}
 
 export default MaquinaItem;

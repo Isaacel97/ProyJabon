@@ -4,16 +4,15 @@ import estilos from '../../styles/estilos';
 import { encender, depositos } from '../../utils/controlBD';
 
 const DetalleMaquina = () => {
-    //funcion depositos
-    const [status, setStatus] = useState(null);
-    useEffect (() => { 
-      getStatus();
-    }, [])
-    const getStatus = async() => {
-      const m = await depositos();
-      console.log(m);
-      setStatus(m);
-    }
+  //funcion depositos
+  const [status, setStatus] = useState(null);
+  useEffect (() => { 
+    getStatus();
+  }, [])
+  const getStatus = async() => {
+  const m = await depositos();
+    setStatus(m);
+  }
   return (
     <View style={{
       ...estilos.container,
@@ -26,16 +25,7 @@ const DetalleMaquina = () => {
         marginBottom: 8,
         textAlign: 'center'
       }}>
-        Estatus {status}
-      </Text>
-      {/* Texto: status proceso */}
-      <Text style={{
-        ...estilos.textDatos,
-        marginTop: 24,
-        marginBottom: 8,
-        textAlign: 'center'
-      }}>
-        Fase i: proceso
+        Estado depositos: {status}
       </Text>
       {/* Boton: inicio proceso */}
       <TouchableOpacity 
@@ -45,31 +35,20 @@ const DetalleMaquina = () => {
           marginHorizontal: 24,
         }}
         title='Alert' 
-        onPress={() => {
-          encender(),
-          console.log('prueba',status)
-          /*
-          if (StatusDepositos == true) {
-            Alert.alert(
-              'Inicio proceso',
-              'Comienza la fabricación' ,
-              [{
-                text: 'Ok',
-                onPress: () => {},
-                style: 'default',
-              }]);
-            {encender}
+        onPress={() => { 
+          getStatus();        
+          if (status == 'Llenos') {
+            encender()
           }else{
             Alert.alert(
               '¡ERROR!',
-              'No es posible iniciar con el proceso, favor de revisar los depositos.' ,
+              'No es posible iniciar, favor de revisar los depositos.' ,
               [{
                 text: 'Ok',
                 onPress: () => {},
                 style: 'default',
               }]);
-          }
-          */
+          }    
         }}>
         <Text style={{
           color: 'white',
@@ -79,7 +58,6 @@ const DetalleMaquina = () => {
         </Text>
       </TouchableOpacity>
     </View>
-  )
-}
+)} //fin view
 
 export default DetalleMaquina;

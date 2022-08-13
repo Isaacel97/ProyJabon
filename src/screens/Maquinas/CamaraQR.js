@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { Text, View, Button, Alert } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import estilos from '../../styles/estilos';
 import colores from '../../styles/colores';
@@ -22,7 +21,6 @@ const CamaraQR = (props) => {
   //obtener permiso de camara
   const [permiso, setPermiso] = useState(null);
   const [scanner, setScanner] = useState(false);
-
   const permisoCamara = () => {(
     async () => {
         const { status } = await BarCodeScanner.requestPermissionsAsync();
