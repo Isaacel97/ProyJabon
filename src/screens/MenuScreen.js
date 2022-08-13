@@ -1,12 +1,11 @@
 /**
  * @format
  * @flow strict-local
- */
- 
- import React, { useState } from 'react';
- import estilos from '../styles/estilos';
- import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
- import {
+ */ 
+import React, { useState } from 'react';
+import estilos from '../styles/estilos';
+import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
+import {
    Alert,
    ScrollView,
    View,
@@ -16,10 +15,11 @@
    TouchableOpacity,
    Pressable
  } from 'react-native';
- import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
+import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
 import { Formik } from 'formik'; 
 import { auth } from '../api/backend';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
 
 const MenuScreen = (props) => {
     //Constantes para ocultar/mostrar passwords

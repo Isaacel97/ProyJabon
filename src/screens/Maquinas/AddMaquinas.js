@@ -27,14 +27,14 @@ const AddMaquinas = (props) => {
           onChangeText={(maquina) => {setMaquina(maquina)}}
           name="idMaq"
           placeholder="Ingresar ID maquina"
-          keyboardType="number-pad" 
+          keyboardType="default"
+          autoCapitalize='none' 
         /> 
       </View>
       {/* Boton: agregar maquina */}
       <TouchableOpacity
         style={estilos.botonTouch}
-        onPress={addMaq}
-      >
+        onPress={addMaq}>
         <Text style={estilos.textBtn}>Agregar maquina</Text>
       </TouchableOpacity>
       {/* Boton: camara maquina */}

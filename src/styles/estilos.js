@@ -6,7 +6,6 @@ const estilos = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     padding: 8,
-    
   },
   logo: {
     width: 290,
@@ -100,11 +99,15 @@ const estilos = StyleSheet.create({
   barcodebox: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: 300,
-    width: 300,
     overflow: 'hidden',
-    borderRadius: 30,
-    backgroundColor: 'tomato'
+    borderRadius: 20,
+    backgroundColor: colores.azulMic
+  },
+  iconMaq: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   }
   });
 

@@ -4,7 +4,6 @@ import estilos from './../../styles/estilos'
 import {AntDesign} from '@expo/vector-icons';
 import {getAuth} from "firebase/auth";
 import { fireNombre } from '../../utils/controlBD';
-import { async } from '@firebase/util';
 
 //tab = pestaña
 const PerfilTab = (props) => {

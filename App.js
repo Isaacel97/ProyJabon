@@ -10,7 +10,6 @@ import AddMaquinas from "./src/screens/Maquinas/AddMaquinas";
 import Pruebas from "./src/screens/Pruebas";
 import estilos from "./src/styles/estilos";
 import CamaraQR from "./src/screens/Maquinas/CamaraQR";
-import {AuthProvider} from "./src/context/AuthContext"
 
 import colores from "./src/styles/colores";
 
@@ -18,7 +17,6 @@ const Stack = createNativeStackNavigator();
 
 const App = () => (
   <NavigationContainer>
-    <AuthProvider>
     <StatusBar
       backgroundColor={colores.azulMic}
     />
@@ -85,9 +83,7 @@ const App = () => (
       />
 
     </Stack.Navigator>
-    </AuthProvider>
   </NavigationContainer>
-
 );
 
 export default App;

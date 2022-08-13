@@ -7,6 +7,7 @@ import MaquinaItem from '../../components/MaquinaItem';
 import { fireMaqLen, fireMaq } from '../../utils/controlBD';
 import {getAuth} from "firebase/auth";
 
+
 //tab = pestaña | i <= arrRepiteItems.length
 const MaquinaTab = (props) => {
   //carga cuenta
@@ -27,7 +28,6 @@ const MaquinaTab = (props) => {
   const getMaquinas = async() => {
     setFlatCargando(true);
     const m = await fireMaq(email);
-    console.log('contenido',m);
     setMaquina(m);
     setFlatCargando(false);
   }
@@ -58,7 +58,7 @@ const MaquinaTab = (props) => {
                     <RefreshControl 
                         refreshing={flatCargando}
                         size='large'
-                        onRefresh={getMaquinas}
+                        onRefresh={{getMaquinas, getMaquinasLen}}
                         tintColor={colores.azulMic} //ios
                         colors={[colores.azulMic]} // android, perimite varios colores a diferencia de tintcolor de ios
                     />

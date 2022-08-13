@@ -36,34 +36,33 @@ const CamaraQR = (props) => {
   }, []);
 
   //despues de escanear
-  const valorScan = ({type, data}) => {
+  const valorScan = ({data}) => {
     setScanner(true);
     setMaquina(data);
-    console.log('Tipo:', type, 'Id maq:', data);
   };
 
   //validar permiso y retornar screen
   if (permiso === null){
     return (
-      <View style={estilos.container}>
+      <View style={{...estilos.container, alignItems: 'center', justifyContent: 'center',}}>
         <Text>Dame permisos para espiar -_-</Text>
       </View>
     )
   };
   if (permiso === false) {
     return (
-        <View style={estilos.container}>
+        <View style={{...estilos.container, alignItems: 'center', justifyContent: 'center',}}>
           <Text style={{ margin: 10 }}>No has dado permisos de camara para escanear QR</Text>
         </View>
       )
   };
   if (maquina == null) {
     return (
-      <View style={estilos.container}>
+      <View style={{...estilos.container, alignItems: 'center', padding: 16}}>
       <View style={estilos.barcodebox}>
         <BarCodeScanner
           onBarCodeScanned={scanner ? undefined : valorScan}
-          style={{ height: 400, width: 400 }} />
+          style={{ height: 400, width: 300 }} />
       </View>
       <Text style={estilos.linkTouch}>¡Escanea el QR¡</Text>
       {scanner && <Button 
@@ -74,11 +73,11 @@ const CamaraQR = (props) => {
 
   //vista normal
   return (
-    <View style={estilos.container}>
+    <View style={{...estilos.container, alignItems: 'center', justifyContent: 'center',}}>
       <View style={estilos.barcodebox}>
         <BarCodeScanner
           onBarCodeScanned={scanner ? undefined : valorScan}
-          style={{ height: 400, width: 400 }} />
+          style={{ height: 400, width: 300 }}  />
       </View>
       <Text style={estilos.linkTouch}>`id: {maquina}`</Text>
       {scanner && <Button 

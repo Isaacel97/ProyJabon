@@ -1,39 +1,19 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { TouchableOpacity, Text, View, Alert } from 'react-native'
 import estilos from '../../styles/estilos';
-import { db } from '../../api/backend';
-import { ref, set, get, child, update } from "firebase/database";
+import { encender, depositos } from '../../utils/controlBD';
 
 const DetalleMaquina = () => {
-  const prendido = 'ON'
-
-  function encender () {
-    update(ref(db, 'Maquina/'), {
-      encendido: prendido
-    }).then(() => {
-      console.log("ya se subio wii");
-    }).catch((error) => {
-      console.log(error);
-      console.log('regada 5#');
-    })
-  };
-
-  function depositos () {
-    const dbRef = ref(db);
-    get(child(dbRef, `Maquina/Depositos`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-        return snapshot.val()
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    }); 
-  };
-
-
-  let StatusDepositos = "llenos";
+    //funcion depositos
+    const [status, setStatus] = useState(null);
+    useEffect (() => { 
+      getStatus();
+    }, [])
+    const getStatus = async() => {
+      const m = await depositos();
+      console.log(m);
+      setStatus(m);
+    }
   return (
     <View style={{
       ...estilos.container,
@@ -46,7 +26,7 @@ const DetalleMaquina = () => {
         marginBottom: 8,
         textAlign: 'center'
       }}>
-        ´Estado depositos´
+        Estatus {status}
       </Text>
       {/* Texto: status proceso */}
       <Text style={{
@@ -66,7 +46,8 @@ const DetalleMaquina = () => {
         }}
         title='Alert' 
         onPress={() => {
-          encender()
+          encender(),
+          console.log('prueba',status)
           /*
           if (StatusDepositos == true) {
             Alert.alert(

@@ -5,15 +5,15 @@ import {AntDesign} from '@expo/vector-icons';
 
 const MaquinaItem = (props) => {
   return (
-    <TouchableOpacity
-      style={estilos.itemContainer}
-    >
+    <TouchableOpacity style={estilos.itemContainer}
+        onPress={() => 
+            props.navigation.navigate('det_maquina')
+        }>
         {/*Icono item*/}
         <View style={{flex:1}}>
             <ImageBackground
                 source={require('./../../assets/images/IconMicAzul.png')}
-                style={estilos.iconItem}
-            />
+                style={estilos.iconItem}/>
         </View>
         {/*Numero de maquina*/}
         <View>
@@ -22,19 +22,11 @@ const MaquinaItem = (props) => {
         </View>
         {/*Boton: detalle maquinas*/}
         <View
-            style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-            }}>
+            style={estilos.iconMaq}>
             <AntDesign
                 name='select1'
-                color={'blue'}
+                color={'black'}
                 size={32}
-                onPress={() => 
-                    props.navigation.navigate('det_maquina')
-                }
             />
         </View>
     </TouchableOpacity>

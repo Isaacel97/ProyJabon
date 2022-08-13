@@ -11,6 +11,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.9",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
@@ -20,7 +21,7 @@
     "expo-checkbox": "~2.2.0",
     "expo-constants": "~13.2.3",
     "expo-status-bar": "~1.4.0",
-    "expo-updates": "~0.14.3",
+    "expo-updates": "~0.14.4",
     "firebase": "^9.9.0",
     "formik": "^2.2.9",
     "install-peerdeps": "^3.0.3",
