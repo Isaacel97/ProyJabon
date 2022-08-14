@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, TextInput, TouchableOpacity, SafeAreaView} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert} from 'react-native';
 import estilos from '../../styles/estilos';
 import {getAuth} from "firebase/auth";
 import { agregaMaq } from '../../utils/controlBD';
@@ -10,8 +10,10 @@ const AddMaquinas = (props) => {
 
   //funcion agregar maquina
   const [maquina, setMaquina] = useState(null);
-  useEffect (() => { 
-    addMaq();
+  useEffect (() => {
+    if (maquina !== null) {
+      addMaq();
+    } 
   }, []);
   const addMaq = async() => {
     const m = await agregaMaq(email, maquina);

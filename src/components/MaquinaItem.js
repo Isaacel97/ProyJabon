@@ -4,11 +4,26 @@ import estilos from '../styles/estilos';
 import {AntDesign} from '@expo/vector-icons';
 
 const MaquinaItem = (props) => {
+    // colecta id seleccionado del item
+    const [prueba, setPrueba] = useState(null);
+    const funPrueba = (enviaPrueba) => {
+        setPrueba(enviaPrueba);
+    }
+
+    //enviar dato a screen det_maq
+    const enviaDato = () => {
+        props.navigation.navigate('det_maquina', {
+            id: prueba
+        })
+    }
+
   return (
     <TouchableOpacity style={estilos.itemContainer}
-        onPress={() => 
-            props.navigation.navigate('det_maquina')
-        }>
+        onPress={() => {
+            funPrueba(props.datosMaquina.id);
+            enviaDato(props.datosMaquina.id);
+            console.log(prueba);
+        }}>
         {/*Icono item*/}
         <View style={{flex:1}}>
             <ImageBackground
@@ -17,7 +32,7 @@ const MaquinaItem = (props) => {
         </View>
         {/*Numero de maquina*/}
         <View>
-            <Text style={estilos.textItem}>{props.datosMaquina.id}</Text>
+            <Text style={estilos.textItem}>{props.datosMaquina.texto}{props.datosMaquina.id}</Text>
 			<Text style={estilos.textItem}>{props.datosMaquina.nombre}</Text>
         </View>
         {/*Boton: detalle maquinas*/}
@@ -29,6 +44,7 @@ const MaquinaItem = (props) => {
                 size={32}/>
         </View>
     </TouchableOpacity>
-)}
+)
+}
 
 export default MaquinaItem;

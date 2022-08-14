@@ -7,7 +7,6 @@ import MaquinaItem from '../../components/MaquinaItem';
 import { fireMaqLen, fireMaq } from '../../utils/controlBD';
 import {getAuth} from "firebase/auth";
 
-
 //tab = pestaña | i <= arrRepiteItems.length
 const MaquinaTab = (props) => {
   //carga cuenta
@@ -44,8 +43,9 @@ const MaquinaTab = (props) => {
   const arrRepiteItems = []
   for (let i = 0; i < maquinaLen; i++ ) {
     arrRepiteItems.push({
-        id: `id: ${maquina[i]}`,
-        nombre: `Maquina: #${i + 1}`,
+      texto: "id: ",
+      id: `${maquina[i]}`,
+      nombre: `Maquina: #${i + 1}`,
     });
   }
   return(

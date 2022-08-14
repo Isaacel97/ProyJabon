@@ -38,33 +38,37 @@ export const agregaMaq = async(varEmail, arrayMaquina) => {
         }).then(() => {
           Alert.alert("Maquina agregada", "¡Se agrego maquina con exito!");
         }).catch((error) => {
-          Alert.alert("¡Error!", "No se agrego el id, intentelo mas tarde.");
+          Alert.alert("¡Error!", error);
         });
-    };   
+    }else{
+      Alert.alert("Dato invalido","Favor de agregar un ID valido")
+    }   
   };
 
 //Realtiem control maquina
-export const encender = async() => {
-  const prendido = 'ON'
-  update(ref(db, 'Maquina/'), {
-    encendido: prendido
-  }).then(() => {
-    Alert.alert(
-      'Inicio proceso',
-      'Comenzando con mezcla de ingredientes' ,
-      [{
-        text: 'Ok',
-        onPress: () => {},
-        style: 'default',
-      }]);
-  }).catch((error) => {
-    Alert.alert('¡ERROR!', 'Problemas de conexion ', error);
-  })
+export const encender = async(varID) => {
+  if (varID != null) {
+    const prendido = 'ON'
+    await update(ref(db, ('maquinas/'+varID)), {
+      encendido: prendido
+    }).then(() => {
+      Alert.alert(
+        'Inicio proceso',
+        'Comenzando con mezcla de ingredientes' ,
+        [{
+          text: 'Ok',
+          onPress: () => {},
+          style: 'default',
+        }]);
+    }).catch((error) => {
+      Alert.alert('¡ERROR!', 'Problemas de conexion ', error);
+    })
+  }
 };
 
 //getDepositos 
-export const depositos = async() => {
+export const depositos = async(varID) => {
   const dbRef = ref(db);
-  const snapshot = await get(child(dbRef, `Maquina/Depositos`));
+  const snapshot = await get(child(dbRef, 'maquinas/'+varID+'/depositos'));
   return snapshot.val();
 };

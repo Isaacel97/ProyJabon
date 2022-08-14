@@ -2,22 +2,29 @@ import React, {useState, useEffect} from 'react'
 import { TouchableOpacity, Text, View, Alert } from 'react-native'
 import estilos from '../../styles/estilos';
 import { encender, depositos } from '../../utils/controlBD';
+import { useRoute } from '@react-navigation/native';
 
-const DetalleMaquina = () => {
+const DetalleMaquina = (props) => {
+  //obtener datos id
+  const route = useRoute();
+  console.log(route.params.id);
+
   //funcion depositos
   const [status, setStatus] = useState(null);
   useEffect (() => { 
     getStatus();
   }, [])
   const getStatus = async() => {
-  const m = await depositos();
+  const m = await depositos(route.params.id);
     setStatus(m);
   }
+
   return (
     <View style={{
       ...estilos.container,
       justifyContent: 'center',
-      }}>      
+      }}>
+      <Text>id: {route.params.id}</Text>      
       {/* Texto: estado depositos */}
       <Text style={{
         ...estilos.textDatos,
@@ -38,7 +45,7 @@ const DetalleMaquina = () => {
         onPress={() => { 
           getStatus();        
           if (status == 'Llenos') {
-            encender()
+            encender(route.params.id)
           }else{
             Alert.alert(
               '¡ERROR!',
