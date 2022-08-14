@@ -24,7 +24,12 @@ const DetalleMaquina = (props) => {
       ...estilos.container,
       justifyContent: 'center',
       }}>
-      <Text>id: {route.params.id}</Text>      
+      <Text style={{
+        ...estilos.textDatos,
+        marginTop: 24,
+        marginBottom: 8,
+        textAlign: 'center'
+      }}>id: {route.params.id}</Text>      
       {/* Texto: estado depositos */}
       <Text style={{
         ...estilos.textDatos,

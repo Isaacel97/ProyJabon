@@ -44,10 +44,14 @@ export const useTogglePasswordVisibility = () => {
   };
 
   export const registroValidationSchema = yup.object().shape({
-    nombresyapellidos: yup
-      .string("Ingresa tus Nombres y Apellidos")
+    nombres: yup
+      .string("Ingresa tu(s) Nombre(s)")
       .required("*Campo requerido"),
-   
+
+    apellidos: yup
+      .string("Ingresa tus Apellidos")
+      .required("*Campo requerido"),
+
     email: yup
       .string("Ingresa tu Email")
       .required("*Campo requerido")

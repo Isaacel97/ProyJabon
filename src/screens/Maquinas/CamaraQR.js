@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { Text, View, Button, Alert } from 'react-native'
+import { Text, View, Button, TouchableOpacity} from 'react-native'
+import {Ionicons} from '@expo/vector-icons'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import estilos from '../../styles/estilos';
 import colores from '../../styles/colores';
@@ -11,8 +12,10 @@ const CamaraQR = (props) => {
   const {email} = getAuth().currentUser;
   //funcion agregar maquina
   const [maquina, setMaquina] = useState(null);
-  useEffect (() => { 
-    addMaq();
+  useEffect (() => {
+    if (maquina !== null) {
+      addMaq();
+    } 
   }, []);
   const addMaq = async() => {
     const m = await agregaMaq(email, maquina);
@@ -78,10 +81,15 @@ const CamaraQR = (props) => {
           style={{ height: 400, width: 300 }}  />
       </View>
       <Text style={estilos.linkTouch}>`id: {maquina}`</Text>
-      {scanner && <Button 
-        title={'Agregar maquina'} 
-        onPress={addMaq} 
-        color={colores.azulMic} />}
+      {scanner && <TouchableOpacity
+        style={estilos.botonTouch}
+        onPress={addMaq}>
+        <Ionicons
+          name='add'
+          size={24}
+          color="white"/>
+        <Text style={estilos.textBtn}> Agregar ID</Text>
+      </TouchableOpacity>}
     </View>
   )
 }

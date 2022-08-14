@@ -3,12 +3,22 @@ import { Text, TouchableOpacity, TextInput, View, Alert, ScrollView } from "reac
 import estilos from './../../styles/estilos'
 import {AntDesign} from '@expo/vector-icons';
 import {getAuth} from "firebase/auth";
-import { fireNombre } from '../../utils/controlBD';
+import { fireNombre, fireApellido } from '../../utils/controlBD';
 
 //tab = pestaña
 const PerfilTab = (props) => {
   //const datos email
   const {email} = getAuth().currentUser;
+
+  //muestra apellido
+  const [apellido, setApellido] = useState (null);
+  useEffect (() => { 
+    getApellido();
+  }, [])
+  const getApellido = async() => {
+    const n = await fireApellido(email);
+    setApellido(n);
+  }
 
   //muestra nombre
   const [nombre, setNombre] = useState (null);
@@ -36,7 +46,7 @@ const PerfilTab = (props) => {
           <TextInput 
             style={estilos.textInputIcon}
             name='nombre'
-            placeholder={nombre}
+            placeholder={nombre +" "+ apellido}
             keyboardType='default'
             editable={false}/>
         </View>

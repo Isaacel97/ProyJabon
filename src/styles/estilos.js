@@ -50,7 +50,9 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     padding:16,
     borderRadius: 8,
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   linkTouch: {
     color: colores.azulMic,

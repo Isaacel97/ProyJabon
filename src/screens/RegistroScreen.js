@@ -5,7 +5,7 @@
  
 import React, { useState } from 'react';
 import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
-import {ScrollView, View, Text, TextInput, Image, TouchableOpacity, Switch, Alert, Pressable, SafeAreaView} from 'react-native';
+import {ScrollView, View, Text, TextInput, Image, TouchableOpacity, Switch, Alert, Pressable, SafeAreaView, RefreshControl} from 'react-native';
 import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
 import { Formik } from 'formik'; 
 import estilos from '../styles/estilos';
@@ -17,21 +17,27 @@ import { setDoc, doc } from 'firebase/firestore';
 const RegistroScreen = (props) => {
   //Constantes para ocultar/mostrar passwords
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
-
   const { repeatPasswordVisibility, rightIcon2, handleRepeatPasswordVisibility } = useToggleRepeatPasswordVisibility();
 
   //const switch
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  // Controlamos la visibilidad del loader
+  const [flatCargando, setFlatCargando] = useState(false);
+
   //const datos a firebase
-  const enviaDatos = async(varNombre, varEmail) =>{
+  const enviaDatos = async(varNombre, varApellido, varEmail) =>{
+    setFlatCargando(true);
     await setDoc(doc(database, 'datoUser', varEmail), {
       nombre: varNombre,
+      apellido: varApellido,
       email: varEmail,
       tipo: 'usuario',
       maquinas: []
-    })}
+    });
+    setFlatCargando(false);
+  }
   //const datos a firebase authentification
   const onHandleSignup = (values) => {
     if (values.email !== '' && values.password !== '') {
@@ -57,10 +63,17 @@ const RegistroScreen = (props) => {
           <Formik
             validateOnMount={true}
             validationSchema={registroValidationSchema}
-            initialValues={{ nombresyapellidos: '', email:'', password: '', repitePawword: '', accepted: false }}
+            initialValues={{ nombres: '', apellidos: '',email:'', password: '', repitePawword: '', accepted: false }}
             onSubmit={(values) => {
-              enviaDatos(values.nombresyapellidos, values.email)
+              enviaDatos(values.nombres, values.apellidos, values.email)
               onHandleSignup(values);
+              <RefreshControl 
+              refreshing={flatCargando}
+              size='large'
+              onRefresh={() => {}}
+              tintColor={colores.azulMic} //ios
+              colors={[colores.azulMic]} // android, perimite varios colores a diferencia de tintcolor de ios
+            />
             }}>
             {({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid}) => (
               <>
@@ -71,17 +84,37 @@ const RegistroScreen = (props) => {
                     size={24}
                     color={'#5271FF'}/>
                   <TextInput style={estilos.textInputIcon} 
-                   name="nombreCompleto"
-                   placeholder="Nombres y Apellidos"
-                   onChangeText={handleChange('nombresyapellidos')}
-                   onBlur={handleBlur('nombresyapellidos')}
-                   value={values.nombresyapellidos}
+                   name="nombre"
+                   placeholder="Nombre(s)"
+                   onChangeText={handleChange('nombres')}
+                   onBlur={handleBlur('nombres')}
+                   value={values.nombres}
                    keyboardType="default" 
                    autoCapitalize='words'/> 
                 </View>
                 <View style={{...estilos.container, padding: 0}}>
-                  {(errors.nombresyapellidos && touched.nombresyapellidos) &&
-                    <Text style={estilos.errorText}>{errors.nombresyapellidos}</Text>
+                  {(errors.nombres && touched.nombres) &&
+                    <Text style={estilos.errorText}>{errors.nombres}</Text>
+                  }
+                </View>
+                {/* Input nombre */}
+                <View style={estilos.textInputIconContainer}>
+                  <AntDesign
+                    name='user'
+                    size={24}
+                    color={'#5271FF'}/>
+                  <TextInput style={estilos.textInputIcon} 
+                   name="apellidos"
+                   placeholder="Apellidos"
+                   onChangeText={handleChange('apellidos')}
+                   onBlur={handleBlur('apellidos')}
+                   value={values.apellidos}
+                   keyboardType="default" 
+                   autoCapitalize='words'/> 
+                </View>
+                <View style={{...estilos.container, padding: 0}}>
+                  {(errors.apellidos && touched.apellidos) &&
+                    <Text style={estilos.errorText}>{errors.apellidos}</Text>
                   }
                 </View>
                 {/* Input email */}

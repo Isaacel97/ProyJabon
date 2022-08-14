@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
 import estilos from '../../styles/estilos';
+import colores from '../../styles/colores';
 import {getAuth} from "firebase/auth";
 import { agregaMaq } from '../../utils/controlBD';
 
@@ -24,6 +26,10 @@ const AddMaquinas = (props) => {
     <View>
       {/* Input Id maquina */}
       <View style={{...estilos.textInputIconContainer, marginTop: 24}}>
+        <MaterialCommunityIcons
+          name='text-short'
+          size={24}
+          color={colores.azulMic}/>
         <TextInput style={estilos.textInputIcon}
           value={maquina} 
           onChangeText={(maquina) => {setMaquina(maquina)}}
@@ -36,6 +42,10 @@ const AddMaquinas = (props) => {
       <TouchableOpacity
         style={estilos.botonTouch}
         onPress={addMaq}>
+        <Ionicons
+          name='add'
+          size={24}
+          color="white"/>
         <Text style={estilos.textBtn}>Agregar maquina</Text>
       </TouchableOpacity>
       {/* Boton: camara maquina */}
@@ -44,7 +54,11 @@ const AddMaquinas = (props) => {
         onPress={() => {
           props.navigation.navigate('camara');
         }}>
-        <Text style={estilos.textBtn}>Escanear QR</Text>
+        <MaterialCommunityIcons
+          name='qrcode-scan'
+          size={24}
+          color="white"/>
+        <Text style={estilos.textBtn}> Escanear QR</Text>
       </TouchableOpacity>
     </View>
 )}

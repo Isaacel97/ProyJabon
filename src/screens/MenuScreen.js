@@ -5,11 +5,12 @@
 import React, { useState } from 'react';
 import estilos from '../styles/estilos';
 import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
-import {Alert, ScrollView, View, Text, TextInput, Image, TouchableOpacity, Pressable} from 'react-native';
+import {ActivityIndicator, Alert, ScrollView, View, Text, TextInput, Image, TouchableOpacity, Pressable} from 'react-native';
 import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
 import { Formik } from 'formik'; 
 import { auth } from '../api/backend';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import colores from '../styles/colores';
 
 const MenuScreen = (props) => {
   //Constantes para ocultar/mostrar passwords
@@ -103,7 +104,9 @@ const MenuScreen = (props) => {
               </TouchableOpacity>
               {/* Link: registro */}
               <TouchableOpacity
-                onPress={() => {props.navigation.navigate('registro');}}>
+                onPress={() => {
+                  props.navigation.navigate('registro');
+                  }}>
                 <Text style={estilos.linkTouch}>
                   ¿No tienes cuenta? ¡Registrate!
                 </Text>

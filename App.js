@@ -49,7 +49,8 @@ const App = () => (
         name="add_maquina"
         component={AddMaquinas}
         options={{
-          title:'Agregar maquina'
+          title:'Agregar maquina',
+          ...estilos.headerEstilo,
         }}
       />
 
@@ -57,7 +58,8 @@ const App = () => (
         name="camara"
         component={CamaraQR}
         options={{
-          title:'Escanear camara'
+          title:'Escanear camara',
+          ...estilos.headerEstilo,
         }}
       />
 
