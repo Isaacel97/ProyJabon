@@ -22,7 +22,6 @@ export const fireApellido = async(varEmail) => {
   return docSnap.data().apellido;
 }
 
-
 //firestore muestra maquinas array
 export const fireMaq = async(varEmail) => {
     const docRef = doc(database, "datoUser", varEmail);

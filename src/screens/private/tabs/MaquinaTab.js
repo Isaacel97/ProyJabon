@@ -16,6 +16,7 @@ const MaquinaTab = (props) => {
   const [flatCargando, setFlatCargando] = useState(false);
   //datos array
   const [maquina, setMaquina] = useState (null);
+  const [maquinaLen, setMaquinaLen] = useState (null);
   useEffect (() => { 
     getMaquinas();
   }, []);
@@ -28,17 +29,11 @@ const MaquinaTab = (props) => {
     setFlatCargando(true);
     const m = await fireMaq(email);
     setMaquina(m);
+    const n = await fireMaqLen(email);
+    setMaquinaLen(n);
     setFlatCargando(false);
   }
-  //tamaño arreglo
-  const [maquinaLen, setMaquinaLen] = useState (null);
-  useEffect (() => { 
-    getMaquinasLen();
-  }, [])
-  const getMaquinasLen = async() => {
-    const m = await fireMaqLen(email);
-    setMaquinaLen(m);
-  }
+
   //array list
   const arrRepiteItems = []
   for (let i = 0; i < maquinaLen; i++ ) {
@@ -55,7 +50,7 @@ const MaquinaTab = (props) => {
           <RefreshControl 
             refreshing={flatCargando}
             size='large'
-            onRefresh={() => {getMaquinas(); getMaquinasLen()}}
+            onRefresh={() => {getMaquinas()}}
             tintColor={colores.azulMic} //ios
             colors={[colores.azulMic]} // android, perimite varios colores a diferencia de tintcolor de ios
           />
