@@ -48,7 +48,7 @@ const estilos = StyleSheet.create({
     margin: 24,
     textAlign: 'center',
     padding:16,
-    borderRadius: 8,
+    borderRadius: 24,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center'
