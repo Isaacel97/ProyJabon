@@ -1,12 +1,12 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import MaquinaTab from './tabs/MaquinaTab';
+import MaquinaTab from './tabs/MaquinaTab'
 import PerfilTab from './tabs/PerfilTab';
 import {MaterialIcons} from '@expo/vector-icons';
-import colores from '../styles/colores';
+import colores from '../../styles/colores';
 import { TouchableOpacity, Alert } from 'react-native';
-import {Icon} from "react-native-elements";
-import { auth } from '../api/backend';
+import { Icon } from 'react-native-elements';
+import { auth } from '../../api/backend';
 
 //Screen = contenedor de pantallas
 const Tab = createBottomTabNavigator();
@@ -18,6 +18,7 @@ const Tab = createBottomTabNavigator();
           headerTintColor: 'white',
           headerLeft: () => {
             return(
+              //boton add maq parte superior
               <TouchableOpacity
                 style={{paddingStart: 16}}
                 title='Alert' 
@@ -30,6 +31,7 @@ const Tab = createBottomTabNavigator();
           )},
           headerRight: () => {
             return(
+              //boton cierra sesion parte superior
               <TouchableOpacity
                 style={{paddingEnd: 16}}
                 title='Alert' 

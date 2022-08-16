@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, FlatList, RefreshControl, SafeAreaView} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import colores from '../../styles/colores';
-import estilos from '../../styles/estilos';
-import MaquinaItem from '../../components/MaquinaItem';
-import { fireMaqLen, fireMaq } from '../../utils/controlBD';
+import colores from '../../../styles/colores';
+import estilos from '../../../styles/estilos';
+import MaquinaItem from '../../../components/Maquinas/MaquinaItem';
+import { fireMaqLen, fireMaq } from '../../../utils/controlBD';
 import {getAuth} from "firebase/auth";
 
 //tab = pestaña | i <= arrRepiteItems.length

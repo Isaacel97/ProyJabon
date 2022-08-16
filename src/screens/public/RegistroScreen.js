@@ -6,11 +6,11 @@
 import React, { useState } from 'react';
 import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 import {ScrollView, View, Text, TextInput, Image, TouchableOpacity, Switch, Alert, Pressable, SafeAreaView, RefreshControl} from 'react-native';
-import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../utils/validaciones';
+import { useTogglePasswordVisibility, useToggleRepeatPasswordVisibility, registroValidationSchema } from '../../utils/validaciones';
 import { Formik } from 'formik'; 
-import estilos from '../styles/estilos';
-import colores from '../styles/colores';
-import { database, auth } from '../api/backend';
+import estilos from '../../styles/estilos';
+import colores from '../../styles/colores';
+import { database, auth } from '../../api/backend';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 
@@ -48,7 +48,7 @@ const RegistroScreen = (props) => {
       })
       .catch((err) => Alert.alert("Login error", err.message));
     } else {
-      Alert.alert("¡ERROR!", "Nose pudo crear la cuenta, intentalo nuevamente");
+      Alert.alert("¡ERROR!", "No se pudo crear la cuenta, intentalo nuevamente");
     }
   };
 
@@ -58,7 +58,7 @@ const RegistroScreen = (props) => {
      <ScrollView style={estilos.container}>  
         <SafeAreaView>
           {/* Logo */}
-          <Image source={require('./../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
+          <Image source={require('../../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
           {/* Validacion datos */}
           <Formik
             validateOnMount={true}
@@ -75,7 +75,7 @@ const RegistroScreen = (props) => {
               colors={[colores.azulMic]} // android, perimite varios colores a diferencia de tintcolor de ios
             />
             }}>
-            {({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid}) => (
+            {({handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue, isValid}) => (
               <>
                {/* Input nombre */}
                 <View style={estilos.textInputIconContainer}>
@@ -205,12 +205,19 @@ const RegistroScreen = (props) => {
                       Acepto terminos y condiciones
                   </Text>
                   <Switch
+                    name='terminos'
                     trackColor={{ false: "#767577", true: colores.azulMic }}
-                    thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+                    thumbColor={values.accepted ? "#f4f3f4" : "#f4f3f4"}
                     ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}/>
+                    value={values.accepted}
+                    onValueChange={value => setFieldValue('accepted', value)}
+                  />
                 </View> 
+                <View style={{...estilos.container, padding: 0}}>
+                    {(errors.accepted && touched.accepted) &&
+                     <Text style={estilos.errorText}>{errors.accepted}</Text>
+                    }
+                </View>
                 {/* Boton: registro */}
                 <TouchableOpacity
                   style={estilos.botonTouch}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
-import estilos from '../../styles/estilos';
-import colores from '../../styles/colores';
+import estilos from '../../../styles/estilos';
+import colores from '../../../styles/colores';
 import {getAuth} from "firebase/auth";
-import { agregaMaq } from '../../utils/controlBD';
+import { agregaMaq } from '../../../utils/controlBD';
 
 const AddMaquinas = (props) => {
   //arrastra datos de sesion

@@ -28,6 +28,8 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.4",
+    "react-native-ble-plx": "^2.0.3",
+    "react-native-bluetooth-serial": "lucassouza16/react-native-bluetooth-serial#latest",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-masked-view": "^0.2.0",

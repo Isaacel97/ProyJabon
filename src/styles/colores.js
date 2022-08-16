@@ -5,6 +5,9 @@ const colores = StyleSheet.create({
     tumbleweed: '#355070',
     azulChido: '#E1FAF9',
     azulMic: '#5271FF',
+    blancoFondo: '#f5fcff',
+    negroMic: '#364149',
+    transparente: '#eceff1'
 })
 
 export default colores;

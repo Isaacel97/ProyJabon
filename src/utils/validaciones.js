@@ -67,11 +67,11 @@ export const useTogglePasswordVisibility = () => {
       .required("*La confirmación es obligatoria")
       .oneOf([yup.ref("password")], "Las contraseñas no son iguales"),
    
-    /*
+    
     accepted: yup
       .bool()
       .isTrue(true),
-    */
+    
   });
 
   export const loginValidationSchema = yup.object().shape({

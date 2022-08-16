@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react'
 import { Text, View, Button, TouchableOpacity} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import estilos from '../../styles/estilos';
-import colores from '../../styles/colores';
+import estilos from '../../../styles/estilos';
+import colores from '../../../styles/colores';
 import {getAuth} from "firebase/auth";
-import { agregaMaq } from '../../utils/controlBD';
+import { agregaMaq } from '../../../utils/controlBD';
 
 const CamaraQR = (props) => {
   //arrastra datos de sesion

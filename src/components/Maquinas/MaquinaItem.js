@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import estilos from '../styles/estilos';
+import estilos from '../../styles/estilos';
 import {AntDesign} from '@expo/vector-icons';
 
 const MaquinaItem = (props) => {
@@ -27,7 +27,7 @@ const MaquinaItem = (props) => {
         {/*Icono item*/}
         <View style={{flex:1}}>
             <ImageBackground
-                source={require('./../../assets/images/IconMicAzul.png')}
+                source={require('../../../assets/images/IconMicAzul.png')}
                 style={estilos.iconItem}/>
         </View>
         {/*Numero de maquina*/}

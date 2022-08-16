@@ -24,13 +24,12 @@ const estilos = StyleSheet.create({
   },
   textInputIconContainer: {
     margin: 8,
-    backgroundColor: 'white',
     width: '95%',
-    borderRadius: 8,
+    borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 4,
-    borderColor: '#5271FF'
+    borderWidth: 2,
+    borderColor: colores.negroMic
   },
   switchContainer: {
     flex: 1,
@@ -74,9 +73,9 @@ const estilos = StyleSheet.create({
     marginTop: 8,
     padding: 8,
     borderWidth: 2,
-    borderColor: colores.yinMnBlue,
+    borderColor: colores.negroMic,
     borderRadius: 10,
-    backgroundColor: colores.azulChido,
+    backgroundColor: colores.blancoFondo,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
@@ -110,7 +109,49 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-  }
+  },
+  textBluetooth: {
+    fontSize: 20
+  },
+  containerBlue: {
+    paddingHorizontal: 20,
+    paddingVertical: 25,
+    backgroundColor: colores.blancoFondo
+  },
+  titleBlue: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  containerToggle: {
+    paddingVertical: 12,
+    flexDirection: 'row'
+  },
+  switchBlue: {
+    width:50,
+  },
+  subtituloBluetooth: {
+    fontSize:18,
+    fontWeight: 'bold',
+    color: 'gray',
+    borderBottomWidth:1,
+    borderColor: colores.negroMic,
+    marginBottom:10
+  },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 12,
+    borderBottomWidth:1,
+    borderColor: colores.transparente,
+  },
+  wrapperPosition:{
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  Nombre:{
+    paddingHorizontal: 20
+  },
   });
 
 export default estilos;

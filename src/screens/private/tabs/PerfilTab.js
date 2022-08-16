@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, TextInput, View, Alert, ScrollView } from "react-native";
-import estilos from './../../styles/estilos'
+import estilos from '../../../styles/estilos'
 import {AntDesign} from '@expo/vector-icons';
 import {getAuth} from "firebase/auth";
-import { fireNombre, fireApellido } from '../../utils/controlBD';
+import { fireNombre, fireApellido } from '../../../utils/controlBD';
 
 //tab = pestaña
 const PerfilTab = (props) => {

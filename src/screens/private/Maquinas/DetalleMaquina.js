@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { TouchableOpacity, Text, View, Alert } from 'react-native'
-import estilos from '../../styles/estilos';
-import { encender, depositos } from '../../utils/controlBD';
+import estilos from '../../../styles/estilos';
+import { encender, depositos } from '../../../utils/controlBD';
 import { useRoute } from '@react-navigation/native';
 
 const DetalleMaquina = (props) => {

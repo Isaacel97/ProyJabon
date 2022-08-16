@@ -3,14 +3,15 @@
  * @flow strict-local
  */ 
 import React, { useState } from 'react';
-import estilos from '../styles/estilos';
-import {AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
-import {ActivityIndicator, Alert, ScrollView, View, Text, TextInput, Image, TouchableOpacity, Pressable} from 'react-native';
-import { useTogglePasswordVisibility, loginValidationSchema } from '../utils/validaciones'; 
+import estilos from '../../styles/estilos';
+import {AntDesign, MaterialCommunityIcons, FontAwesome5} from '@expo/vector-icons';
+import {Alert, ScrollView, View, Text, TextInput, Image, TouchableOpacity, Pressable} from 'react-native';
+import { useTogglePasswordVisibility, loginValidationSchema } from '../../utils/validaciones'; 
 import { Formik } from 'formik'; 
-import { auth } from '../api/backend';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import colores from '../styles/colores';
+import { auth } from '../../api/backend';
+import { signInWithEmailAndPassword } from 'firebase/auth'; 
+import { FAB } from 'react-native-elements';
+import colores from '../../styles/colores';
 
 const MenuScreen = (props) => {
   //Constantes para ocultar/mostrar passwords
@@ -40,7 +41,7 @@ const MenuScreen = (props) => {
      <ScrollView style={estilos.container}>  
       <View>
         {/* Logo */}
-        <Image source={require('./../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
+        <Image source={require('../../../assets/images/logo2.png')} resizeMode="cover" style={estilos.logo}></Image>
         {/* Validacion datos */}
         <Formik
           validateOnMount={true}
@@ -107,7 +108,7 @@ const MenuScreen = (props) => {
                 onPress={() => {
                   props.navigation.navigate('registro');
                   }}>
-                <Text style={estilos.linkTouch}>
+                <Text style={{...estilos.linkTouch, paddingBottom:90}}>
                   ¿No tienes cuenta? ¡Registrate!
                 </Text>
               </TouchableOpacity>
@@ -115,6 +116,13 @@ const MenuScreen = (props) => {
           )}
         </Formik>
       </View>
+      <FAB
+        title="Maquina"
+        placement='right'
+        color={colores.azulMic}
+        onPress={() => {props.navigation.navigate('wifi')}}
+        icon={<FontAwesome5 name="wifi" size={24} color="white"/>}
+      />
      </ScrollView>    
     </>
 )};

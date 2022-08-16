@@ -1,15 +1,24 @@
 import React from "react";
+// style barra superior
 import { StatusBar } from 'expo-status-bar';
+// navegacion
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MenuScreen from './src/screens/MenuScreen';
-import RegistroScreen from "./src/screens/RegistroScreen";
-import DetalleMaquina from "./src/screens/Maquinas/DetalleMaquina";
-import TabContainerScreen from "./src/screens/TabContainerScreen";
-import AddMaquinas from "./src/screens/Maquinas/AddMaquinas";
+//publico
+import MenuScreen from './src/screens/public/MenuScreen';
+import RegistroScreen from "./src/screens/public/RegistroScreen";
+import WifiMaquina from "./src/screens/public/WifiMaquina";
+import ListBluetooth from "./src/screens/public/bluetooth/ListBluetooth";
+//privado
+import TabContainerScreen from "./src/screens/private/TabContainerScreen";
+//maquina
+import DetalleMaquina from "./src/screens/private/Maquinas/DetalleMaquina";
+import AddMaquinas from "./src/screens/private/Maquinas/AddMaquinas";
+import CamaraQR from "./src/screens/private/Maquinas/CamaraQR";
+//estilos
 import estilos from "./src/styles/estilos";
-import CamaraQR from "./src/screens/Maquinas/CamaraQR";
 import colores from "./src/styles/colores";
+
 
 const Stack = createNativeStackNavigator();
 const App = () => (
@@ -32,6 +41,24 @@ const App = () => (
         component={RegistroScreen}
         options={{
           title:'Registrate',
+          ...estilos.headerEstilo,
+        }}
+      />
+
+      <Stack.Screen
+        name="wifi"
+        component={WifiMaquina}
+        options={{
+          title:'Conectar maquina',
+          ...estilos.headerEstilo,
+        }}
+      />
+
+      <Stack.Screen
+        name="list_blue"
+        component={ListBluetooth}
+        options={{
+          title:'Dispositivos',
           ...estilos.headerEstilo,
         }}
       />
