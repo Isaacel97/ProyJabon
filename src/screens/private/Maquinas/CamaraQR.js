@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Text, View, Button, TouchableOpacity} from 'react-native'
+import { Text, View, Button, TouchableOpacity, Alert} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import estilos from '../../../styles/estilos';
@@ -66,8 +66,6 @@ const CamaraQR = (props) => {
           style={{ height: 400, width: 300 }} />
       </View>
       <Text style={estilos.linkTouch}>¡Escanea el QR¡</Text>
-      {scanner && <Button 
-        title={'Agregar maquina'} onPress={addMaq} color={colores.azulMic} />}
     </View>
       )
   }
@@ -83,7 +81,23 @@ const CamaraQR = (props) => {
       <Text style={estilos.linkTouch}>`id: {maquina}`</Text>
       {scanner && <TouchableOpacity
         style={estilos.botonTouch}
-        onPress={addMaq}>
+        onPress={() => {
+          addMaq();
+          Alert.alert(
+            'Proceso copleto',
+            '¡Maquina agregada! ¿Desea agregar otra maquina?' ,
+            [{
+              text: 'Si',
+              onPress: () => {props.navigation.navigate('add_maquina');},
+              style: 'default',
+            },
+            {
+              text: 'No',
+              onPress: () => {props.navigation.navigate('det_maquina');},
+              style: 'destructive',
+            }
+          ]);
+        }}>
         <Ionicons
           name='add'
           size={24}

@@ -43,7 +43,7 @@ export const agregaMaq = async(varEmail, arrayMaquina) => {
         await updateDoc(maquinaRef, {
           maquinas: arrayUnion(arrayMaquina)
         }).then(() => {
-          Alert.alert("Maquina agregada", "¡Se agrego maquina con exito!");
+          
         }).catch((error) => {
           Alert.alert("¡Error!", error);
         });
