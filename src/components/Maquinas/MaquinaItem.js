@@ -11,7 +11,7 @@ const MaquinaItem = (props) => {
     }
 
     //enviar dato a screen det_maq
-    const enviaDato = () => {
+    const enviaDato = (prueba) => {
         props.navigation.navigate('det_maquina', {
             id: prueba
         })

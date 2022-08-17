@@ -152,6 +152,14 @@ const estilos = StyleSheet.create({
   Nombre:{
     paddingHorizontal: 20
   },
+  textDatosTitle: {
+    paddingStart: 8,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 24,
+    marginBottom: 8,
+    textAlign: 'center'
+  },
   });
 
 export default estilos;

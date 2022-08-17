@@ -79,3 +79,17 @@ export const depositos = async(varID) => {
   const snapshot = await get(child(dbRef, 'maquinas/'+varID+'/depositos'));
   return snapshot.val();
 };
+
+//getEncendido 
+export const getEncendido = async(varID) => {
+  const dbRef = ref(db);
+  const snapshot = await get(child(dbRef, 'maquinas/'+varID+'/encendido'));
+  return snapshot.val();
+};
+
+//getIdRealtime
+export const idRealtime = async(varID) => {
+  const dbRef = ref(db);
+  const snapshot = await get(child(dbRef, 'maquinas/'+varID+'/id'));
+  return snapshot.val();
+};
