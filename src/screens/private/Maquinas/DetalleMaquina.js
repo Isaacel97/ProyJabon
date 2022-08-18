@@ -14,7 +14,7 @@ const DetalleMaquina = (props) => {
   const [status, setStatus] = useState(null);
   const [obtEncendido, setObtEncendido] = useState(null);
   const [id, setId] = useState(null);
-  const datoMaq = route.params.id;
+  let datoMaq = route.params.id;
 
   useEffect (() => { 
       getStatus();
