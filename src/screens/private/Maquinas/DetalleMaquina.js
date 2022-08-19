@@ -14,7 +14,6 @@ const DetalleMaquina = (props) => {
   const [status, setStatus] = useState(null);
   const [obtEncendido, setObtEncendido] = useState(null);
   const [id, setId] = useState(null);
-  let datoMaq = route.params.id;
 
   useEffect (() => { 
       getStatus();
@@ -26,11 +25,11 @@ const DetalleMaquina = (props) => {
   );
   const getStatus = async() => {
     setFlatCargando(true);
-    const m = await depositos(datoMaq);
+    const m = await depositos(route.params.id);
     setStatus(m);
-    const p = await getEncendido(datoMaq);
+    const p = await getEncendido(route.params.id);
     setObtEncendido(p);
-    const n = await idRealtime(datoMaq);
+    const n = await idRealtime(route.params.id);
     setId(n);
     setFlatCargando(false);
   }

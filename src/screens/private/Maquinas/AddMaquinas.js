@@ -18,7 +18,7 @@ const AddMaquinas = (props) => {
     } 
   }, []);
   const addMaq = async() => {
-    const m = await agregaMaq(email, maquina);
+    const m = await agregaMaq(email, maquina, props);
     setMaquina(m);
   }
   //comienza la vista

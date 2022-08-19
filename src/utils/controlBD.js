@@ -37,13 +37,21 @@ export const fireMaqLen = async(varEmail) => {
 }
 
 //firestores agrega maquina
-export const agregaMaq = async(varEmail, arrayMaquina) => {
+export const agregaMaq = async(varEmail, arrayMaquina, props) => {
     if (arrayMaquina != null) {
         const maquinaRef = doc(database, "datoUser", varEmail);
         await updateDoc(maquinaRef, {
           maquinas: arrayUnion(arrayMaquina)
         }).then(() => {
-          
+          Alert.alert(
+            'Proceso copleto',
+            'Maquina agregada con exito' ,
+            [{
+              text: 'Si',
+              onPress: () => {props.navigation.navigate('add_maquina');},
+              style: 'default',
+            },
+          ]);
         }).catch((error) => {
           Alert.alert("¡Error!", error);
         });

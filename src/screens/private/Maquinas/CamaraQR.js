@@ -3,7 +3,6 @@ import { Text, View, Button, TouchableOpacity, Alert} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import estilos from '../../../styles/estilos';
-import colores from '../../../styles/colores';
 import {getAuth} from "firebase/auth";
 import { agregaMaq } from '../../../utils/controlBD';
 
@@ -18,7 +17,7 @@ const CamaraQR = (props) => {
     } 
   }, []);
   const addMaq = async() => {
-    const m = await agregaMaq(email, maquina);
+    const m = await agregaMaq(email, maquina, props);
     setMaquina(m);
   };
   //obtener permiso de camara
@@ -83,20 +82,6 @@ const CamaraQR = (props) => {
         style={estilos.botonTouch}
         onPress={() => {
           addMaq();
-          Alert.alert(
-            'Proceso copleto',
-            '¡Maquina agregada! ¿Desea agregar otra maquina?' ,
-            [{
-              text: 'Si',
-              onPress: () => {props.navigation.navigate('add_maquina');},
-              style: 'default',
-            },
-            {
-              text: 'No',
-              onPress: () => {props.navigation.navigate('det_maquina');},
-              style: 'destructive',
-            }
-          ]);
         }}>
         <Ionicons
           name='add'
